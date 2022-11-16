@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Room from "./components/Room";
 import Device from "./components/Device";
 import { Chair, Table, TV } from "./components/Furniture";
-// import MenuIcon from "./components/MenuIcon";
+import MenuIcon from "./components/MenuIcon";
 import BasicModal
  from './components/modal';
 
@@ -118,7 +118,7 @@ const App = () => {
 
       <div className="flex flex-col items-center justify-center">
         <div className="mt-4 mb-8">
-          {/* <MenuIcon /> */}
+          <MenuIcon />
         </div>
         <div className="mb-4">
           <button

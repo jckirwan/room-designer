@@ -11,7 +11,7 @@ const BasicModal = ({
     setRoomWidth,
   ...props
 }) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -36,7 +36,7 @@ const BasicModal = ({
 
   return (
     <>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
+      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
         open={open}
         onClose={handleClose}

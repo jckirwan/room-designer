@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Room from './components/Room';
 import Device from './components/Device';
 import { Chair, Table, TV } from './components/Furniture';
-
+import BasicModal
+ from './components/modal';
 const DEFAULT_DELTAS = {
   x: 0,
   y: 0,
@@ -108,10 +109,13 @@ const App = () => {
   ]);
 
   return (
+    <>
+    <BasicModal></BasicModal>
     <Room>
       {roomFurniture}
       {roomDevices}
     </Room>
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Room = ({ children }) => {
+const Room = ({ roomHeight, roomWidth, children }) => {
   return (
     <div
       style={{

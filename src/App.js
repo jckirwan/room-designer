@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Room from "./components/Room";
 import Device from "./components/Device";
 import { Chair, Table, TV } from "./components/Furniture";
-import MenuIcon from "./components/MenuIcon";
+// import MenuIcon from "./components/MenuIcon";
 import BasicModal
  from './components/modal';
 
@@ -23,6 +23,8 @@ const App = () => {
   const [controlledPosition, setControlledPosition] =
     useState(DEFAULT_CONTROLLED);
   const [isDragging, setIsDragging] = useState(activeDrags > 0);
+  const [roomWidth, setRoomWidth] = useState("");
+  const [roomHeight, setRoomHeight] = useState("");
 
   const handleDrag = (e, ui) => {
     const { x, y } = deltaPosition;
@@ -116,12 +118,12 @@ const App = () => {
 
       <div className="flex flex-col items-center justify-center">
         <div className="mt-4 mb-8">
-          <MenuIcon />
+          {/* <MenuIcon /> */}
         </div>
       
-        <BasicModal></BasicModal>
+        <BasicModal roomWidth={roomWidth} roomHeight={roomHeight} setRoomWidth={setRoomWidth} setRoomHeight={setRoomHeight}></BasicModal>
 
-        <Room>
+        <Room roomWidth={roomWidth} roomHeight={roomHeight}>
           {roomFurniture}
           {roomDevices}
         </Room>

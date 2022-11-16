@@ -4,6 +4,7 @@ import Device from './components/Device';
 import { Chair, Table, TV } from './components/Furniture';
 import BasicModal
  from './components/modal';
+
 const DEFAULT_DELTAS = {
   x: 0,
   y: 0,
@@ -31,34 +32,34 @@ const App = () => {
   };
 
   const onStart = () => {
-    console.log('Starting...');
+    console.log("Starting...");
     setActiveDrags(activeDrags + 1);
   };
 
   const onStop = () => {
-    console.log('Stopped!');
+    console.log("Stopped!");
     setActiveDrags(activeDrags - 1);
   };
 
   const onDrop = (e) => {
-    console.log('Dropped!');
+    console.log("Dropped!");
     setActiveDrags(activeDrags - 1);
-    if (e.target.classList.contains('drop-target')) {
-      alert('Dropped!', e.target);
+    if (e.target.classList.contains("drop-target")) {
+      alert("Dropped!", e.target);
       // e.target.classList.remove('hovered');
     }
   };
 
   const onDropAreaMouseEnter = (e) => {
     if (isDragging) {
-      console.log('Entered drop area while dragging!');
+      console.log("Entered drop area while dragging!");
       // e.target.classList.add('hovered');
     }
   };
 
   const onDropAreaMouseLeave = (e) => {
     if (isDragging) {
-      console.log('Exited drop area while dragging!');
+      console.log("Exited drop area while dragging!");
       // e.target.classList.remove('hovered');
     }
   };

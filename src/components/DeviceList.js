@@ -7,6 +7,7 @@ const DeviceImage = ({ size, src, name, className }) => {
       height={size}
       src={src}
       alt={name}
+      title={name}
       className={className}
     />
   );

@@ -5,6 +5,8 @@ import DeviceList from "./components/DeviceList";
 import FurnitureList from "./components/FurnitureList";
 import { Chair, Table, TV } from "./components/Furniture";
 import MenuIcon from "./components/MenuIcon";
+import BasicModal from './components/Modal';
+
 
 const DEFAULT_DELTAS = {
   x: 0,
@@ -22,6 +24,8 @@ const App = () => {
   const [controlledPosition, setControlledPosition] =
     useState(DEFAULT_CONTROLLED);
   const [isDragging, setIsDragging] = useState(activeDrags > 0);
+  const [roomWidth, setRoomWidth] = useState("");
+  const [roomHeight, setRoomHeight] = useState("");
 
   const handleDrag = (e, ui) => {
     const { x, y } = deltaPosition;
@@ -112,6 +116,7 @@ const App = () => {
 
   return (
     <>
+
       <div className="flex flex-col items-center justify-center">
         <div className="flex flex-col items-center w-full">
           <div className="w-full bg-blue-500 shadow-sm">
@@ -119,7 +124,8 @@ const App = () => {
             <MenuIcon />
           </div>
           </div>
-          <div className="my-4">
+          <div className="my-4 inline-block">
+            <BasicModal roomWidth={roomWidth} roomHeight={roomHeight} setRoomWidth={setRoomWidth} setRoomHeight={setRoomHeight}></BasicModal>
             <button
               className="button-secondary"
               onClick={() => console.log("Reset room button was clicked.")}
@@ -128,12 +134,13 @@ const App = () => {
             </button>
           </div>
         </div>
+
         <div className="flex w-full justify-center">
           <div className="flex flex-col">
             <DeviceList />
           </div>
           <div className="">
-            <Room height="12" width="20">
+            <Room height={roomHeight} width={roomWidth}>
               {roomFurniture}
               {roomDevices}
             </Room>

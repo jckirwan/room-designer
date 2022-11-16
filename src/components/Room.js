@@ -6,7 +6,7 @@ import {
   GRID_UNIT_PIXEL,
 } from "../constants/Room";
 
-const Room = ({ width, height, children, ...props }) => {
+const Room = ({width, height, children, ...props }) => {
   const roomHeight = height || DEFAULT_ROOM_SIZE;
   const roomWidth = width || DEFAULT_ROOM_SIZE;
 

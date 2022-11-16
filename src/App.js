@@ -120,10 +120,11 @@ const App = () => {
         <div className="mt-4 mb-8">
           {/* <MenuIcon /> */}
         </div>
+
       
         <BasicModal roomWidth={roomWidth} roomHeight={roomHeight} setRoomWidth={setRoomWidth} setRoomHeight={setRoomHeight}></BasicModal>
 
-        <Room roomWidth={roomWidth} roomHeight={roomHeight}>
+        <Room height={roomHeight} width={roomWidth}>
           {roomFurniture}
           {roomDevices}
         </Room>

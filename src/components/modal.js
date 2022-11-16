@@ -16,19 +16,18 @@ const BasicModal = ({
   const handleClose = () => setOpen(false);
 
  
-
-  const continueToSimulator = () =>{
-    setOpen(false)
-    console.log("continue to simulator")
-    console.log(roomWidth, roomHeight)
-  }
+//   const continueToSimulator = () =>{
+//     setOpen(false)
+//     console.log("continue to simulator")
+//     console.log(roomWidth, roomHeight)
+//   }
 
   const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: 500,
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -51,7 +50,7 @@ const BasicModal = ({
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Enter the width and height of your Owl's home:
           </Typography>
-          <div className="inline-flex">
+          <div className="inline-flex mt-3">
             <div>
              Width:<input className="w-12" placeholder="ft" value={roomWidth} onChange={(e) => setRoomWidth(e.target.value)}></input>
             </div>{" "}
@@ -61,7 +60,7 @@ const BasicModal = ({
             </div>
           </div>
           <div>
-            <Button onClick={()=>continueToSimulator()}>Continue</Button>
+            <Button onClick={()=>setOpen(false)}>Continue</Button>
           </div>
         </Box>
       </Modal>

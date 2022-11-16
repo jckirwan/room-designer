@@ -1,8 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Draggable from "react-draggable";
 import { GRID_DIMENSIONS_PIXEL } from "../constants/Room";
 
 const Device = ({ dragHandlers, style, activeDrags, id, ...props }) => {
+  const { devices } = useSelector((state) => state.room);
+  const position = {
+    x: devices[id]?.x,
+    y: devices[id]?.y,
+  };
   return (
     <Draggable
       bounds="parent"
@@ -10,6 +16,7 @@ const Device = ({ dragHandlers, style, activeDrags, id, ...props }) => {
       onStop={dragHandlers.onDrop}
       onDrag={dragHandlers.onDrag}
       {...dragHandlers}
+      position={position}
     >
       <div
         className={`device ${activeDrags ? "no-pointer-events" : ""}`}

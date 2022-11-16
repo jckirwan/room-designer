@@ -56,6 +56,10 @@ const Furniture = ({
   const dispatch = useDispatch();
   const { furniture } = useSelector((state) => state.room);
   const [menuOpen, setMenuOpen] = useState(false);
+  const position = {
+    x: furniture[id]?.x,
+    y: furniture[id]?.y,
+  };
   return (
     <Draggable
       bounds="parent"
@@ -63,6 +67,7 @@ const Furniture = ({
       onDrag={dragHandlers.onDrag}
       {...dragHandlers}
       cancel=".menu"
+      position={position}
     >
       <div
         id={id}

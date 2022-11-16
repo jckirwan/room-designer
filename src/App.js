@@ -114,13 +114,12 @@ const App = () => {
         <div className="mt-4 mb-8">
           <MenuIcon />
         </div>
-      
-      
-        <Room>
+
+        <Room height="12" width="20">
           {roomFurniture}
           {roomDevices}
         </Room>
-        </div>
+      </div>
     </>
   );
 };

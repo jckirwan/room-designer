@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import Modal from "@mui/material/Modal";
+import { useDispatch } from "react-redux";
+import { resetRoom } from "../slices/room";
 
 const ConfirmationModal = ({
-    dispatch,
   ...props
 }) => {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
 
-  const resetRoom = () => {
+  const clearRoom = () => {
     setOpen(false)
     dispatch(resetRoom())
   }
@@ -34,7 +36,7 @@ const ConfirmationModal = ({
 
           <div className='flex items-center justify-center w-full p-2'>
           <button onClick={()=>setOpen(false)} className="button-secondary">Cancel</button>
-            <button onClick={()=>resetRoom()} className="button ">Continue</button>
+            <button onClick={()=>clearRoom()} className="button ">Continue</button>
           </div>
           </div>
       </Modal>

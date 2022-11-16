@@ -8,6 +8,7 @@ import { Chair, Table, TV } from "./components/Furniture";
 import MenuIcon from "./components/MenuIcon";
 import BasicModal from "./components/modal";
 import ConfirmationModal from "./components/ConfirmationModal";
+import { MeetingOwl3, WhiteboardOwl, MeetingHQ } from "./components/Device";
 
 import {
   resetRoom,
@@ -145,14 +146,53 @@ const App = () => {
     });
   };
 
+  const createDevices = (devices) => {
+    return Object.entries(devices).map(([id, piece]) => {
+      let component;
+      const { type } = piece;
+      switch (type) {
+        case "mop3":
+          component = (
+            <MeetingOwl3
+              key={id}
+              id={id}
+              activeDrags={activeDrags}
+              dragHandlers={dragHandlers}
+            />
+          );
+          break;
+        case "wbo":
+          component = (
+            <WhiteboardOwl
+              key={id}
+              id={id}
+              activeDrags={activeDrags}
+              dragHandlers={dragHandlers}
+            />
+          );
+          break;
+        case "mhq":
+          component = (
+            <MeetingHQ
+              key={id}
+              id={id}
+              activeDrags={activeDrags}
+              dragHandlers={dragHandlers}
+            />
+          );
+          break;
+        default:
+          break;
+      }
+      return component;
+    });
+  };
+
   const [roomFurniture, setRoomFurniture] = useState(
     createFurniture(furniture)
   );
 
-  // This should be a map so we can insert, remove, update, etc
-  const [roomDevices, setRoomDevices] = useState([
-    <Device id="owl-1" activeDrags={activeDrags} dragHandlers={dragHandlers} />,
-  ]);
+  const [roomDevices, setRoomDevices] = useState(createDevices(devices));
 
   return (
     <>

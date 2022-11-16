@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   devices: {
     "owl-1": {
-      type: "MOP",
+      type: "mop3",
       rotation: 0,
       x: 0,
       y: 0,

@@ -3,7 +3,14 @@ import { useSelector } from "react-redux";
 import Draggable from "react-draggable";
 import { GRID_DIMENSIONS_PIXEL } from "../constants/Room";
 
-const Device = ({ dragHandlers, style, activeDrags, id, ...props }) => {
+const Device = ({
+  dragHandlers,
+  style,
+  activeDrags,
+  id,
+  children,
+  ...props
+}) => {
   const { devices } = useSelector((state) => state.room);
   const position = {
     x: devices[id]?.x,
@@ -15,6 +22,7 @@ const Device = ({ dragHandlers, style, activeDrags, id, ...props }) => {
       grid={GRID_DIMENSIONS_PIXEL}
       onStop={dragHandlers.onDrop}
       onDrag={dragHandlers.onDrag}
+      activeDrags={activeDrags}
       {...dragHandlers}
       position={position}
     >
@@ -24,22 +32,46 @@ const Device = ({ dragHandlers, style, activeDrags, id, ...props }) => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#fff",
-          border: "1px solid #999",
           borderRadius: 3,
           width: 25,
-          height: 25,
           margin: 0,
-          padding: 5,
-          fontSize: 9,
           zIndex: 5,
           ...style,
         }}
         id={id}
       >
-        {"c"}
+        {children}
       </div>
     </Draggable>
+  );
+};
+
+export const MeetingOwl3 = ({ id, activeDrags, dragHandlers }) => {
+  return (
+    <Device id={id} activeDrags={activeDrags} dragHandlers={dragHandlers}>
+      <img
+        draggable="false"
+        id={id}
+        src="assets/img/mop3.png"
+        alt="Meeting Owl 3"
+      />
+    </Device>
+  );
+};
+
+export const WhiteboardOwl = ({ id, activeDrags, dragHandlers }) => {
+  return (
+    <Device id={id} activeDrags={activeDrags} dragHandlers={dragHandlers}>
+      <img draggable="false" src="assets/img/wbo.png" alt="Whiteboard Owl" />
+    </Device>
+  );
+};
+
+export const MeetingHQ = ({ id, activeDrags, dragHandlers }) => {
+  return (
+    <Device id={id} activeDrags={activeDrags} dragHandlers={dragHandlers}>
+      <img draggable="false" src="assets/img/mhq.png" alt="Meeting HQ" />
+    </Device>
   );
 };
 

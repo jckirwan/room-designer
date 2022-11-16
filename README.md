@@ -4,4 +4,4 @@ Google Doc: https://docs.google.com/document/d/1_RyOXRPQNJ7R2lZ2Y5FsoSDRv4nZcrYM
 
 Based on https://react-grid-layout.github.io/react-draggable/example/
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/room-designer-xzjxc7)
+[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/room-designer)

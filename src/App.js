@@ -1,12 +1,18 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Room from "./components/Room";
 import Device from "./components/Device";
 import DeviceList from "./components/DeviceList";
 import FurnitureList from "./components/FurnitureList";
 import { Chair, Table, TV } from "./components/Furniture";
 import MenuIcon from "./components/MenuIcon";
-import BasicModal from './components/modal';
+import BasicModal from "./components/modal";
 
+import {
+  resetRoom,
+  updateDeviceCoordinates,
+  updateFurnitureCoordinates,
+} from "./slices/room";
 
 const DEFAULT_DELTAS = {
   x: 0,
@@ -19,6 +25,8 @@ const DEFAULT_CONTROLLED = {
 };
 
 const App = () => {
+  const dispatch = useDispatch();
+  const { devices, furniture } = useSelector((state) => state.room);
   const [activeDrags, setActiveDrags] = useState(0);
   const [deltaPosition, setDeltaPosition] = useState(DEFAULT_DELTAS);
   const [controlledPosition, setControlledPosition] =
@@ -27,45 +35,58 @@ const App = () => {
   const [roomWidth, setRoomWidth] = useState("");
   const [roomHeight, setRoomHeight] = useState("");
 
-  const handleDrag = (e, ui) => {
+  const onDrag = (e, ui) => {
     const { x, y } = deltaPosition;
-    console.log(ui);
     setDeltaPosition({
       x: x + ui.deltaX,
       y: y + ui.deltaY,
     });
   };
 
-  const onStart = () => {
-    console.log("Starting...");
+  const onStart = (e, ui) => {
     setActiveDrags(activeDrags + 1);
   };
 
-  const onStop = () => {
-    console.log("Stopped!");
+  const onStop = (e, ui) => {
+    const { x, y } = ui;
+    const { id, classList } = ui?.node;
+    const isDevice = classList.contains("device");
+    if (isDevice) {
+      dispatch(
+        updateDeviceCoordinates({
+          id,
+          x,
+          y,
+        })
+      );
+    } else {
+      dispatch(
+        updateFurnitureCoordinates({
+          id,
+          x,
+          y,
+        })
+      );
+    }
     setActiveDrags(activeDrags - 1);
   };
 
   const onDrop = (e) => {
-    console.log("Dropped!");
     setActiveDrags(activeDrags - 1);
     if (e.target.classList.contains("drop-target")) {
       alert("Dropped!", e.target);
-      // e.target.classList.remove('hovered');
     }
   };
 
   const onDropAreaMouseEnter = (e) => {
     if (isDragging) {
       console.log("Entered drop area while dragging!");
-      // e.target.classList.add('hovered');
     }
   };
 
   const onDropAreaMouseLeave = (e) => {
     if (isDragging) {
       console.log("Exited drop area while dragging!");
-      // e.target.classList.remove('hovered');
     }
   };
 
@@ -97,38 +118,60 @@ const App = () => {
     onStart,
     onStop,
     onDrop,
-    handleDrag,
+    onDrag,
     onDropAreaMouseEnter,
     onDropAreaMouseLeave,
   };
 
-  // This should be a map so we can insert, remove, update, etc
-  const [roomFurniture, setRoomFurniture] = useState([
-    <Table dragHandlers={dragHandlers} />,
-    <Chair dragHandlers={dragHandlers} />,
-    <TV dragHandlers={dragHandlers} canHoldDevices={false} />,
-  ]);
+  const createFurniture = (furniture) => {
+    return Object.entries(furniture).map(([id, piece]) => {
+      let component;
+      const { type } = piece;
+      switch (type) {
+        case "chair":
+          component = <Chair key={id} id={id} dragHandlers={dragHandlers} />;
+          break;
+        case "tv":
+          component = <TV key={id} id={id} dragHandlers={dragHandlers} />;
+          break;
+        case "table":
+          component = <Table key={id} id={id} dragHandlers={dragHandlers} />;
+          break;
+        default:
+          break;
+      }
+      return component;
+    });
+  };
+
+  const [roomFurniture, setRoomFurniture] = useState(
+    createFurniture(furniture)
+  );
 
   // This should be a map so we can insert, remove, update, etc
   const [roomDevices, setRoomDevices] = useState([
-    <Device activeDrags={activeDrags} dragHandlers={dragHandlers} />,
+    <Device id="owl-1" activeDrags={activeDrags} dragHandlers={dragHandlers} />,
   ]);
 
   return (
     <>
-
       <div className="flex flex-col items-center justify-center">
         <div className="flex flex-col items-center w-full">
           <div className="w-full bg-blue-500 shadow-sm">
-          <div className="my-4">
-            <MenuIcon />
-          </div>
+            <div className="my-4">
+              <MenuIcon />
+            </div>
           </div>
           <div className="my-4 inline-block">
-            <BasicModal roomWidth={roomWidth} roomHeight={roomHeight} setRoomWidth={setRoomWidth} setRoomHeight={setRoomHeight}></BasicModal>
+            <BasicModal
+              roomWidth={roomWidth}
+              roomHeight={roomHeight}
+              setRoomWidth={setRoomWidth}
+              setRoomHeight={setRoomHeight}
+            ></BasicModal>
             <button
               className="button-secondary"
-              onClick={() => console.log("Reset room button was clicked.")}
+              onClick={() => dispatch(resetRoom())}
             >
               Reset Room
             </button>

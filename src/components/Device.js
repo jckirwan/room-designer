@@ -1,21 +1,22 @@
-import React from 'react';
-import Draggable from 'react-draggable';
-import { GRID_DIMENSIONS_PIXEL } from '../constants/Room';
+import React from "react";
+import Draggable from "react-draggable";
+import { GRID_DIMENSIONS_PIXEL } from "../constants/Room";
 
-const Device = ({ dragHandlers, style, activeDrags }) => {
+const Device = ({ dragHandlers, style, activeDrags, id, ...props }) => {
   return (
     <Draggable
       bounds="parent"
       grid={GRID_DIMENSIONS_PIXEL}
-      {...dragHandlers}
       onStop={dragHandlers.onDrop}
+      onDrag={dragHandlers.onDrag}
+      {...dragHandlers}
     >
       <div
-        className={`box ${activeDrags ? "no-pointer-events" : ""}`}
+        className={`device ${activeDrags ? "no-pointer-events" : ""}`}
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
           background: "#fff",
           border: "1px solid #999",
           borderRadius: 3,
@@ -25,8 +26,9 @@ const Device = ({ dragHandlers, style, activeDrags }) => {
           padding: 5,
           fontSize: 9,
           zIndex: 5,
-          ...style
+          ...style,
         }}
+        id={id}
       >
         {"c"}
       </div>

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import Draggable from 'react-draggable';
-import { GRID_SIZE } from '../constants/Room';
+import React, { useState } from "react";
+import Draggable from "react-draggable";
+import { GRID_SIZE } from "../constants/Room";
 
 const getNextRotation = (rotation) => {
   console.log("rotation!", rotation);
@@ -12,11 +12,16 @@ const getNextRotation = (rotation) => {
 
 const MenuItem = ({ onClick, last, children }) => {
   return (
-    <div style={{padding: 5, borderBottom: last ? "none" : "1px solid grey"}} onClick={onClick}>{children}</div>
+    <div
+      style={{ padding: 5, borderBottom: last ? "none" : "1px solid grey" }}
+      onClick={onClick}
+    >
+      {children}
+    </div>
   );
 };
 
-const Menu = ({children}) => {
+const Menu = ({ children }) => {
   const WIDTH = 75;
   return (
     <div
@@ -28,30 +33,45 @@ const Menu = ({children}) => {
         color: "#000",
         width: WIDTH,
         userSelect: "none",
-        zIndex: 1000
+        zIndex: 1000,
       }}
-      className="menu">
+      className="menu"
+    >
       {children}
     </div>
   );
 };
 
-const Furniture = ({ dragHandlers, width, height, setWidth, setHeight, style, children, canHoldDevices = true }) => {
+const Furniture = ({
+  dragHandlers,
+  width,
+  height,
+  setWidth,
+  setHeight,
+  style,
+  children,
+  canHoldDevices = true,
+}) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [rotation, setRotation] = useState(0);
   return (
-    <Draggable bounds="parent" grid={GRID_SIZE} {...dragHandlers} cancel=".menu">
+    <Draggable
+      bounds="parent"
+      grid={GRID_SIZE}
+      {...dragHandlers}
+      cancel=".menu"
+    >
       <div
         className={`furniture`}
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
           position: "absolute",
           ...style,
           width,
           height,
-          background: "none"
+          background: "none",
         }}
         onMouseEnter={() => {
           setMenuOpen(true);
@@ -62,10 +82,10 @@ const Furniture = ({ dragHandlers, width, height, setWidth, setHeight, style, ch
         handleDrag={dragHandlers.handleDrag}
       >
         <div
-          className={canHoldDevices ? 'drop-target' : ''}
+          className={canHoldDevices ? "drop-target" : ""}
           style={{
-            background: style.background || '#eee',
-            border: '1px solid #999',
+            background: style.background || "#eee",
+            border: "1px solid #999",
             borderRadius: style.borderRadius || 50,
             margin: 0,
             zIndex: 1,
@@ -86,7 +106,7 @@ const Furniture = ({ dragHandlers, width, height, setWidth, setHeight, style, ch
             >
               Rotate
             </MenuItem>
-            {setHeight && 
+            {setHeight && (
               <MenuItem
                 onClick={() => {
                   setHeight(height + 25);
@@ -94,8 +114,8 @@ const Furniture = ({ dragHandlers, width, height, setWidth, setHeight, style, ch
               >
                 Y +
               </MenuItem>
-            }
-            {setHeight && 
+            )}
+            {setHeight && (
               <MenuItem
                 onClick={() => {
                   setHeight(height - 25);
@@ -103,8 +123,8 @@ const Furniture = ({ dragHandlers, width, height, setWidth, setHeight, style, ch
               >
                 Y -
               </MenuItem>
-            }
-            {setWidth && 
+            )}
+            {setWidth && (
               <MenuItem
                 onClick={() => {
                   setWidth(width + 25);
@@ -112,8 +132,8 @@ const Furniture = ({ dragHandlers, width, height, setWidth, setHeight, style, ch
               >
                 X +
               </MenuItem>
-            }
-            {setWidth && 
+            )}
+            {setWidth && (
               <MenuItem
                 onClick={() => {
                   setWidth(width - 25);
@@ -122,7 +142,7 @@ const Furniture = ({ dragHandlers, width, height, setWidth, setHeight, style, ch
               >
                 X -
               </MenuItem>
-            }
+            )}
           </Menu>
         )}
       </div>
@@ -162,7 +182,7 @@ export const Chair = ({ children, ...props }) => {
     width: width,
     height: width,
     background: "transparent",
-    border: "none"
+    border: "none",
   };
 
   return (
@@ -173,7 +193,12 @@ export const Chair = ({ children, ...props }) => {
       setWidth={setWidth}
       {...props}
     >
-      <img width={width} height={width} src="assets/img/chair.svg" draggable={false} />
+      <img
+        width={width}
+        height={width}
+        src="assets/img/chair.svg"
+        draggable={false}
+      />
     </Furniture>
   );
 };

@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import Room from './components/Room';
-import Device from './components/Device';
-import { Chair, Table, TV } from './components/Furniture';
+import React, { useState } from "react";
+import Room from "./components/Room";
+import Device from "./components/Device";
+import { Chair, Table, TV } from "./components/Furniture";
+import MenuIcon from "./components/MenuIcon";
 import BasicModal
  from './components/modal';
+
 
 const DEFAULT_DELTAS = {
   x: 0,
@@ -111,11 +113,20 @@ const App = () => {
 
   return (
     <>
-    <BasicModal></BasicModal>
-    <Room>
-      {roomFurniture}
-      {roomDevices}
-    </Room>
+
+      <div className="flex flex-col items-center justify-center">
+        <div className="mt-4 mb-8">
+          <MenuIcon />
+        </div>
+      
+        <BasicModal></BasicModal>
+
+        <Room>
+          {roomFurniture}
+          {roomDevices}
+        </Room>
+        </div>
+
     </>
   );
 };

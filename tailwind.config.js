@@ -5,6 +5,7 @@ module.exports = {
 presets: [defaultConfig],
 content: [
     "./src/**/*.{js,jsx,ts,tsx}",
+    "./public/index.html"
 ],
 theme: {
     extend: {},

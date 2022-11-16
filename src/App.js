@@ -35,7 +35,7 @@ const App = () => {
     useState(DEFAULT_CONTROLLED);
   const [isDragging, setIsDragging] = useState(activeDrags > 0);
   const [roomWidth, setRoomWidth] = useState("");
-  const [roomHeight, setRoomHeight] = useState("");
+  const [roomLength, setRoomLength] = useState("");
 
   const onDrag = (e, ui) => {
     const { x, y } = deltaPosition;
@@ -206,9 +206,9 @@ const App = () => {
           <div className="my-4 inline-block">
             <BasicModal
               roomWidth={roomWidth}
-              roomHeight={roomHeight}
+              roomLength={roomLength}
               setRoomWidth={setRoomWidth}
-              setRoomHeight={setRoomHeight}
+              setRoomLength={setRoomLength}
             ></BasicModal>
             <ConfirmationModal></ConfirmationModal>
           </div>
@@ -218,8 +218,8 @@ const App = () => {
           <div className="flex flex-col">
             <DeviceList />
           </div>
-          <div className="">
-            <Room height={roomHeight} width={roomWidth}>
+          <div className="w-fit">
+            <Room height={roomLength} width={roomWidth}>
               {roomFurniture}
               {roomDevices}
             </Room>

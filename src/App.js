@@ -5,8 +5,7 @@ import DeviceList from "./components/DeviceList";
 import FurnitureList from "./components/FurnitureList";
 import { Chair, Table, TV } from "./components/Furniture";
 import MenuIcon from "./components/MenuIcon";
-import BasicModal
- from './components/Modal';
+import BasicModal from './components/Modal';
 
 
 const DEFAULT_DELTAS = {
@@ -119,27 +118,38 @@ const App = () => {
     <>
 
       <div className="flex flex-col items-center justify-center">
-        <div className="mt-4 mb-8">
-          <MenuIcon />
-        </div>
-        <div className="mb-4 inline-block">
-        <BasicModal roomWidth={roomWidth} roomHeight={roomHeight} setRoomWidth={setRoomWidth} setRoomHeight={setRoomHeight}></BasicModal>
-          <button
-            className="button-secondary"
-            onClick={() => console.log("Reset room button was clicked.")}
-          >
-            Reset Room
-          </button>
-        </div>
-
-      
-
-        <Room height={roomHeight} width={roomWidth}>
-        <DeviceList />
-        <FurnitureList />
-        </Room>
+        <div className="flex flex-col items-center w-full">
+          <div className="w-full bg-blue-500 shadow-sm">
+          <div className="my-4">
+            <MenuIcon />
+          </div>
+          </div>
+          <div className="my-4 inline-block">
+            <BasicModal roomWidth={roomWidth} roomHeight={roomHeight} setRoomWidth={setRoomWidth} setRoomHeight={setRoomHeight}></BasicModal>
+            <button
+              className="button-secondary"
+              onClick={() => console.log("Reset room button was clicked.")}
+            >
+              Reset Room
+            </button>
+          </div>
         </div>
 
+        <div className="flex w-full justify-center">
+          <div className="flex flex-col">
+            <DeviceList />
+          </div>
+          <div className="">
+            <Room height={roomHeight} width={roomWidth}>
+              {roomFurniture}
+              {roomDevices}
+            </Room>
+          </div>
+          <div className="flex flex-col">
+            <FurnitureList />
+          </div>
+        </div>
+      </div>
     </>
   );
 };

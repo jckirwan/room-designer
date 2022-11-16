@@ -1,5 +1,9 @@
 import React from "react";
 
+const FurnitureImage = ({ size, src, name }) => {
+  return <img width={size} height={size} src={src} alt={name} />;
+};
+
 const FurnitureList = () => {
   const FurnitureImage = ({ size, src, name, className }) => {
     return (

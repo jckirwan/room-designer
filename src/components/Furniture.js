@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Draggable from "react-draggable";
 import { GRID_DIMENSIONS_PIXEL } from "../constants/Room";
+import { updateFurnitureRotation } from "../slices/room";
 
 const getNextRotation = (rotation) => {
   console.log("rotation!", rotation);
@@ -46,22 +48,24 @@ const Furniture = ({
   dragHandlers,
   width,
   height,
-  setWidth,
-  setHeight,
   style,
   children,
-  canHoldDevices = true,
+  id,
+  ...props
 }) => {
+  const dispatch = useDispatch();
+  const { furniture } = useSelector((state) => state.room);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [rotation, setRotation] = useState(0);
   return (
     <Draggable
       bounds="parent"
       grid={GRID_DIMENSIONS_PIXEL}
+      onDrag={dragHandlers.onDrag}
       {...dragHandlers}
       cancel=".menu"
     >
       <div
+        id={id}
         className={`furniture`}
         style={{
           display: "flex",
@@ -79,17 +83,15 @@ const Furniture = ({
         onMouseLeave={() => {
           setMenuOpen(false);
         }}
-        handleDrag={dragHandlers.handleDrag}
       >
         <div
-          className={canHoldDevices ? "drop-target" : ""}
           style={{
             background: style.background || "#eee",
             border: "1px solid #999",
             borderRadius: style.borderRadius || 50,
             margin: 0,
             zIndex: 1,
-            rotate: `${rotation}deg`,
+            rotate: `${furniture[id]?.rotation || 0}deg`,
             ...style,
             width,
             height,
@@ -101,48 +103,17 @@ const Furniture = ({
           <Menu>
             <MenuItem
               onClick={() => {
-                setRotation(getNextRotation(rotation));
+                const rotation = furniture[id]?.rotation || 0;
+                dispatch(
+                  updateFurnitureRotation({
+                    id,
+                    rotation: getNextRotation(rotation),
+                  })
+                );
               }}
             >
               Rotate
             </MenuItem>
-            {setHeight && (
-              <MenuItem
-                onClick={() => {
-                  setHeight(height + 25);
-                }}
-              >
-                Y +
-              </MenuItem>
-            )}
-            {setHeight && (
-              <MenuItem
-                onClick={() => {
-                  setHeight(height - 25);
-                }}
-              >
-                Y -
-              </MenuItem>
-            )}
-            {setWidth && (
-              <MenuItem
-                onClick={() => {
-                  setWidth(width + 25);
-                }}
-              >
-                X +
-              </MenuItem>
-            )}
-            {setWidth && (
-              <MenuItem
-                onClick={() => {
-                  setWidth(width - 25);
-                }}
-                last={true}
-              >
-                X -
-              </MenuItem>
-            )}
           </Menu>
         )}
       </div>
@@ -150,9 +121,7 @@ const Furniture = ({
   );
 };
 
-export const Table = ({ children, ...props }) => {
-  const [width, setWidth] = useState(200);
-  const [height, setHeight] = useState(100);
+export const Table = ({ width = 200, height = 100, children, ...props }) => {
   return (
     <Furniture
       style={{
@@ -164,8 +133,6 @@ export const Table = ({ children, ...props }) => {
       }}
       width={width}
       height={height}
-      setWidth={setWidth}
-      setHeight={setHeight}
       {...props}
     >
       {children}
@@ -173,9 +140,7 @@ export const Table = ({ children, ...props }) => {
   );
 };
 
-export const Chair = ({ children, ...props }) => {
-  const [width, setWidth] = useState(50);
-
+export const Chair = ({ width = 50, children, ...props }) => {
   const style = {
     borderRadius: 0,
     color: "white",
@@ -186,13 +151,7 @@ export const Chair = ({ children, ...props }) => {
   };
 
   return (
-    <Furniture
-      style={style}
-      width={width}
-      height={width}
-      setWidth={setWidth}
-      {...props}
-    >
+    <Furniture style={style} width={width} height={width} {...props}>
       <img
         width={width}
         height={width}

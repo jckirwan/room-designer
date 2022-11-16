@@ -6,7 +6,7 @@ import {
   GRID_UNIT_PIXEL,
 } from "../constants/Room";
 
-const Room = ({width, height, children, ...props }) => {
+const Room = ({ width, height, children, ...props }) => {
   const roomHeight = height || DEFAULT_ROOM_SIZE;
   const roomWidth = width || DEFAULT_ROOM_SIZE;
 
@@ -24,14 +24,7 @@ const Room = ({width, height, children, ...props }) => {
         border: "1px solid grey",
       }}
     >
-      <div
-        style={{
-          height: "100%",
-          width: "100%",
-        }}
-      >
-        {children}
-      </div>
+      <div className="w-full h-full">{children}</div>
     </div>
   );
 };

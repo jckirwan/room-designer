@@ -1,18 +1,13 @@
 import React, { useState } from "react";
 import Modal from "@mui/material/Modal";
-import { useDispatch } from "react-redux";
 
 const ConfirmationModal = ({
-    roomHeight,
-    setRoomHeight,
-    roomWidth,
-    setRoomWidth,
+    dispatch,
   ...props
 }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const dispatch = useDispatch();
 
 
   const resetRoom = () => {

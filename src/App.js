@@ -170,7 +170,7 @@ const App = () => {
               setRoomWidth={setRoomWidth}
               setRoomHeight={setRoomHeight}
             ></BasicModal>
-            <ConfirmationModal></ConfirmationModal>
+            <ConfirmationModal dispatch={dispatch}></ConfirmationModal>
           </div>
         </div>
 

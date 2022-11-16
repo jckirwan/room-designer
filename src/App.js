@@ -7,6 +7,7 @@ import FurnitureList from "./components/FurnitureList";
 import { Chair, Table, TV } from "./components/Furniture";
 import MenuIcon from "./components/MenuIcon";
 import BasicModal from "./components/modal";
+import ConfirmationModal from "./components/ConfirmationModal";
 
 import {
   resetRoom,
@@ -169,12 +170,7 @@ const App = () => {
               setRoomWidth={setRoomWidth}
               setRoomHeight={setRoomHeight}
             ></BasicModal>
-            <button
-              className="button-secondary"
-              onClick={() => dispatch(resetRoom())}
-            >
-              Reset Room
-            </button>
+            <ConfirmationModal dispatch={dispatch}></ConfirmationModal>
           </div>
         </div>
 

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Room from "./components/Room";
 import Device from "./components/Device";
+import DeviceList from "./components/DeviceList";
+import FurnitureList from "./components/FurnitureList";
 import { Chair, Table, TV } from "./components/Furniture";
 import MenuIcon from "./components/MenuIcon";
 import BasicModal
- from './components/modal';
+ from './components/Modal';
 
 
 const DEFAULT_DELTAS = {
@@ -120,7 +122,8 @@ const App = () => {
         <div className="mt-4 mb-8">
           <MenuIcon />
         </div>
-        <div className="mb-4">
+        <div className="mb-4 inline-block">
+        <BasicModal roomWidth={roomWidth} roomHeight={roomHeight} setRoomWidth={setRoomWidth} setRoomHeight={setRoomHeight}></BasicModal>
           <button
             className="button-secondary"
             onClick={() => console.log("Reset room button was clicked.")}
@@ -130,11 +133,10 @@ const App = () => {
         </div>
 
       
-        <BasicModal roomWidth={roomWidth} roomHeight={roomHeight} setRoomWidth={setRoomWidth} setRoomHeight={setRoomHeight}></BasicModal>
 
         <Room height={roomHeight} width={roomWidth}>
-          {roomFurniture}
-          {roomDevices}
+        <DeviceList />
+        <FurnitureList />
         </Room>
         </div>
 

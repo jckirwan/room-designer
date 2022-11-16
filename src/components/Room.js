@@ -1,24 +1,33 @@
-import React from 'react';
+import React from "react";
+import {
+  BORDER_SIZE,
+  DEFAULT_ROOM_SIZE,
+  FOOT,
+  GRID_UNIT_PIXEL,
+} from "../constants/Room";
 
-const Room = ({ children }) => {
+const Room = ({ width, height, children, ...props }) => {
+  const roomHeight = height || DEFAULT_ROOM_SIZE;
+  const roomWidth = width || DEFAULT_ROOM_SIZE;
+
   return (
     <div
       style={{
-        position: 'relative',
+        position: "relative",
         /* Account for borders on width/height */
-        width: 1002,
-        height: 602,
+        width: roomWidth * FOOT + BORDER_SIZE,
+        height: roomHeight * FOOT + BORDER_SIZE,
         backgroundImage:
-          'repeating-linear-gradient(#eee 0 1px,transparent 1px 100%),repeating-linear-gradient(90deg, #eee 0 1px, transparent 1px 100%)',
-        backgroundSize: '25px 25px',
-        backgroundColor: '#fff',
-        border: '1px solid grey',
+          "repeating-linear-gradient(#eee 0 1px,transparent 1px 100%),repeating-linear-gradient(90deg, #eee 0 1px, transparent 1px 100%)",
+        backgroundSize: `${GRID_UNIT_PIXEL}px ${GRID_UNIT_PIXEL}px `,
+        backgroundColor: "#fff",
+        border: "1px solid grey",
       }}
     >
       <div
         style={{
-          height: '100%',
-          width: '100%',
+          height: "100%",
+          width: "100%",
         }}
       >
         {children}

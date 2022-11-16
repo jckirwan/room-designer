@@ -1,12 +1,12 @@
 import React from 'react';
 import Draggable from 'react-draggable';
-import { GRID_SIZE } from '../constants/Room';
+import { GRID_DIMENSIONS_PIXEL } from '../constants/Room';
 
 const Device = ({ dragHandlers, style, activeDrags }) => {
   return (
     <Draggable
       bounds="parent"
-      grid={GRID_SIZE}
+      grid={GRID_DIMENSIONS_PIXEL}
       {...dragHandlers}
       onStop={dragHandlers.onDrop}
     >

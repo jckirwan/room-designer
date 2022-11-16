@@ -28,7 +28,12 @@ const FurnitureList = () => {
           name="Chair"
           className="my-4 hover:cursor-grab active:cursor-grabbing"
         />
-
+        <FurnitureImage
+          size={50}
+          src="assets/img/tv.svg"
+          name="Screen"
+          className="my-4 hover:cursor-grab active:cursor-grabbing"
+        />
       </div>
     </>
   );

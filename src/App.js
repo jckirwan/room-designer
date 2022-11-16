@@ -120,6 +120,14 @@ const App = () => {
         <div className="mt-4 mb-8">
           {/* <MenuIcon /> */}
         </div>
+        <div className="mb-4">
+          <button
+            className="button-secondary"
+            onClick={() => console.log("Reset room button was clicked.")}
+          >
+            Reset Room
+          </button>
+        </div>
 
       
         <BasicModal roomWidth={roomWidth} roomHeight={roomHeight} setRoomWidth={setRoomWidth} setRoomHeight={setRoomHeight}></BasicModal>

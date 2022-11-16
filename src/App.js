@@ -5,7 +5,7 @@ import DeviceList from "./components/DeviceList";
 import FurnitureList from "./components/FurnitureList";
 import { Chair, Table, TV } from "./components/Furniture";
 import MenuIcon from "./components/MenuIcon";
-import BasicModal from './components/Modal';
+import BasicModal from './components/modal';
 
 
 const DEFAULT_DELTAS = {

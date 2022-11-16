@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Room from "./components/Room";
 import Device from "./components/Device";
+import DeviceList from "./components/DeviceList";
+import FurnitureList from "./components/FurnitureList";
 import { Chair, Table, TV } from "./components/Furniture";
 import MenuIcon from "./components/MenuIcon";
 
@@ -123,6 +125,8 @@ const App = () => {
           </button>
         </div>
 
+        <DeviceList />
+        <FurnitureList />
         <Room height="12" width="20">
           {roomFurniture}
           {roomDevices}

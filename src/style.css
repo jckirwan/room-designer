@@ -1,5 +1,39 @@
-h1,
-p {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+font-family: "Roobert-Regular";
+src: url("./fonts/roobert-regular.woff2") format("woff2"),
+    url("./fonts/roobert-regular.woff") format("woff");
+}
+
+@font-face {
+    font-family: "Roobert-RegularItalic";
+    src: url('./fonts/Roobert-RegularItalic.otf') format('openType');
+}
+
+@font-face {
+    font-family: "Roobert-Medium";
+    src: url('./fonts/Roobert-Medium.otf') format('openType');
+}
+
+@font-face {
+    font-family: "Roobert-MediumItalic";
+    src: url('./fonts/Roobert-MediumItalic.otf') format('openType');
+}
+
+@font-face {
+font-family: "Roobert-SemiBold";
+src: url('./fonts/Roobert-SemiBold.otf') format('openType');
+}
+
+@font-face {
+    font-family: "Roobert-SemiBoldItalic";
+    src: url('./fonts/Roobert-SemiBoldItalic.otf') format('openType');
+}
+@font-face {
+    font-family: "Right-Grotesk";
+    src: url("./fonts/rightgrotesk-narrowblack.woff2") format("woff2"),
+    url("./fonts/rightgrotesk-narrowblack.woff") format("woff");
 }

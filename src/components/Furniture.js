@@ -6,7 +6,7 @@ import { updateFurnitureRotation } from "../slices/room";
 
 const getNextRotation = (rotation) => {
   console.log("rotation!", rotation);
-  if (rotation === 270) {
+  if (rotation === 315) {
     return 0;
   }
   return rotation + 45;

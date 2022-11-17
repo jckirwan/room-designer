@@ -1,36 +1,19 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Draggable from "react-draggable";
-import { GRID_DIMENSIONS_PIXEL } from "../constants/Room";
-import { updateFurnitureRotation } from "../slices/room";
-import { RotateCw } from "react-feather";
-
-
-const getNextRotation = (rotation) => {
-  console.log("rotation!", rotation);
-  if (rotation === 315) {
-    return 0;
-  }
-  return rotation + 45;
-};
-
-const MenuItem = ({ onClick, last, children }) => {
-  return (
-    <div
-      onClick={onClick}
-    >
-      {children}
-    </div>
-  );
-};
-
-const Menu = ({ children }) => {
-  return (
-    <div className="absolute w-[38px] -bottom-[24px] z-10 select-none ">
-      {children}
-    </div>
-  );
-};
+import {
+  GRID_DIMENSIONS_PIXEL,
+  FURNITURE_DIMENSIONS,
+  FURNITURE_TYPES,
+} from "../constants/Room";
+import {
+  updateFurnitureRotation,
+  removeFurniture,
+  addFurniture,
+} from "../slices/room";
+import { RotateCw, RotateCcw } from "react-feather";
+import { Menu, MenuItem } from "../components/Menu";
+import { getNextRotation, getPreviousRotation } from "../utils";
 
 const Furniture = ({
   dragHandlers,
@@ -83,6 +66,9 @@ const Furniture = ({
             border: "1px solid #999",
             borderRadius: style.borderRadius || 50,
             margin: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             zIndex: 1,
             rotate: `${furniture[id]?.rotation || 0}deg`,
             ...style,
@@ -107,6 +93,42 @@ const Furniture = ({
             >
               <RotateCw className="w-[23px] font-sans h-[23px] text-black inline cursor:pointer mt-[-5px] ml-[7px]" />
             </MenuItem>
+            <MenuItem
+              onClick={() => {
+                const rotation = furniture[id]?.rotation || 0;
+                dispatch(
+                  updateFurnitureRotation({
+                    id,
+                    rotation: getPreviousRotation(rotation),
+                  })
+                );
+              }}
+            >
+              <RotateCcw className="w-[23px] font-sans h-[23px] text-black inline cursor:pointer mt-[-5px] ml-[7px]" />
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                dispatch(
+                  addFurniture({
+                    type: furniture[id]?.type,
+                    width,
+                    height,
+                    rotation: furniture[id]?.rotation,
+                    x: furniture[id]?.x + 10,
+                    y: furniture[id]?.y + 10,
+                  })
+                );
+              }}
+            >
+              Duplicate
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                dispatch(removeFurniture(id));
+              }}
+            >
+              Delete
+            </MenuItem>
           </Menu>
         )}
       </div>
@@ -114,31 +136,89 @@ const Furniture = ({
   );
 };
 
-export const Table = ({ width = 200, height = 100, children, ...props }) => {
+export const TableSmall = ({ children, ...props }) => {
+  const { width, height } = FURNITURE_DIMENSIONS[FURNITURE_TYPES.TABLE_SMALL];
   return (
     <Furniture
       style={{
-        borderRadius: 50,
-        background: "brown",
-        color: "white",
-        width: 175,
-        height: 175,
+        border: "none",
+        background: "none",
+        width,
+        height,
+        padding: 0,
       }}
       width={width}
       height={height}
       {...props}
     >
-      {children}
+      <img
+        draggable="false"
+        src="assets/img/conference-small.png"
+        alt="Table"
+      />
     </Furniture>
   );
 };
 
-export const Chair = ({ width = 50, children, ...props }) => {
+export const TableMedium = ({ children, ...props }) => {
+  const { width, height } = FURNITURE_DIMENSIONS[FURNITURE_TYPES.TABLE_MEDIUM];
+  return (
+    <Furniture
+      style={{
+        border: "none",
+        background: "none",
+        width,
+        height,
+        padding: 0,
+      }}
+      width={width}
+      height={height}
+      {...props}
+    >
+      <img
+        width={width}
+        height={height}
+        draggable="false"
+        src="assets/img/conference-medium.png"
+        alt="Table"
+      />
+    </Furniture>
+  );
+};
+
+export const TableLarge = ({ children, ...props }) => {
+  const { width, height } = FURNITURE_DIMENSIONS[FURNITURE_TYPES.TABLE_LARGE];
+  return (
+    <Furniture
+      style={{
+        border: "none",
+        background: "none",
+        width,
+        height,
+        padding: 0,
+      }}
+      width={width}
+      height={height}
+      {...props}
+    >
+      <img
+        width={width}
+        height={height}
+        draggable="false"
+        src="assets/img/conference-large.png"
+        alt="Table"
+      />
+    </Furniture>
+  );
+};
+
+export const Chair = ({ children, ...props }) => {
+  const { width, height } = FURNITURE_DIMENSIONS[FURNITURE_TYPES.CHAIR];
   const style = {
     borderRadius: 0,
     color: "white",
-    width: width,
-    height: width,
+    width,
+    height,
     background: "transparent",
     border: "none",
   };
@@ -156,8 +236,7 @@ export const Chair = ({ width = 50, children, ...props }) => {
 };
 
 export const TV = ({ children, ...props }) => {
-  const [width, setWidth] = useState(100);
-  const [height, setHeight] = useState(25);
+  const { width, height } = FURNITURE_DIMENSIONS[FURNITURE_TYPES.SCREEN];
   return (
     <Furniture
       style={{
@@ -167,8 +246,6 @@ export const TV = ({ children, ...props }) => {
       }}
       width={width}
       height={height}
-      setWidth={setWidth}
-      setHeight={setHeight}
       {...props}
     >
       {children}

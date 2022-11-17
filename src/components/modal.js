@@ -1,13 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "@mui/material/Modal";
+import { setRoomWidth, setRoomLength } from "../slices/room";
 
-const BasicModal = ({
-  roomLength,
-  setRoomLength,
-  roomWidth,
-  setRoomWidth,
-  ...props
-}) => {
+const BasicModal = () => {
+  const dispatch = useDispatch();
+  const { roomWidth, roomLength } = useSelector((state) => state.room);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -37,7 +35,7 @@ const BasicModal = ({
                 className="w-12 ml-2 border border-gray-400 px-2 "
                 placeholder="ft"
                 value={roomWidth}
-                onChange={(e) => setRoomWidth(e.target.value)}
+                onChange={(e) => dispatch(setRoomWidth(e.target.value))}
               ></input>
             </div>{" "}
             <div className="ml-4">x</div>
@@ -47,7 +45,7 @@ const BasicModal = ({
                 className="w-12 border border-gray-400 ml-2 px-2"
                 placeholder="ft"
                 value={roomLength}
-                onChange={(e) => setRoomLength(e.target.value)}
+                onChange={(e) => dispatch(setRoomLength(e.target.value))}
               ></input>
             </div>
           </div>
@@ -56,12 +54,10 @@ const BasicModal = ({
             <button
               onClick={() => {
                 setOpen(false);
-                setRoomLength("");
-                setRoomWidth("");
               }}
               className="button-secondary"
             >
-              Cancel
+              Close
             </button>
             <button onClick={() => setOpen(false)} className="button ">
               Continue

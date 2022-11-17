@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Room from "./components/Room";
-import Device from "./components/Device";
 import DeviceList from "./components/DeviceList";
 import FurnitureList from "./components/FurnitureList";
-import { Chair, Table, TV } from "./components/Furniture";
+import {
+  Chair,
+  TableSmall,
+  TableMedium,
+  TableLarge,
+  TV,
+} from "./components/Furniture";
 import MenuIcon from "./components/MenuIcon";
 import BasicModal from "./components/modal";
 import ConfirmationModal from "./components/ConfirmationModal";
 import { MeetingOwl3, WhiteboardOwl, MeetingHQ } from "./components/Device";
-
+import { DEVICE_TYPES, FURNITURE_TYPES } from "./constants/Room";
 import {
-  resetRoom,
   updateDeviceCoordinates,
   updateFurnitureCoordinates,
 } from "./slices/room";
@@ -28,14 +32,14 @@ const DEFAULT_CONTROLLED = {
 
 const App = () => {
   const dispatch = useDispatch();
-  const { devices, furniture } = useSelector((state) => state.room);
+  const { devices, furniture, roomWidth, roomLength } = useSelector(
+    (state) => state.room
+  );
   const [activeDrags, setActiveDrags] = useState(0);
   const [deltaPosition, setDeltaPosition] = useState(DEFAULT_DELTAS);
   const [controlledPosition, setControlledPosition] =
     useState(DEFAULT_CONTROLLED);
   const [isDragging, setIsDragging] = useState(activeDrags > 0);
-  const [roomWidth, setRoomWidth] = useState("");
-  const [roomLength, setRoomLength] = useState("");
 
   const onDrag = (e, ui) => {
     const { x, y } = deltaPosition;
@@ -130,14 +134,28 @@ const App = () => {
       let component;
       const { type } = piece;
       switch (type) {
-        case "chair":
+        case FURNITURE_TYPES.PODIUM:
+        case FURNITURE_TYPES.CHAIR:
           component = <Chair key={id} id={id} dragHandlers={dragHandlers} />;
           break;
-        case "tv":
+        case FURNITURE_TYPES.WHITEBOARD:
+        case FURNITURE_TYPES.SCREEN:
           component = <TV key={id} id={id} dragHandlers={dragHandlers} />;
           break;
-        case "table":
-          component = <Table key={id} id={id} dragHandlers={dragHandlers} />;
+        case FURNITURE_TYPES.TABLE_LARGE:
+          component = (
+            <TableLarge key={id} id={id} dragHandlers={dragHandlers} />
+          );
+          break;
+        case FURNITURE_TYPES.TABLE_MEDIUM:
+          component = (
+            <TableMedium key={id} id={id} dragHandlers={dragHandlers} />
+          );
+          break;
+        case FURNITURE_TYPES.TABLE_SMALL:
+          component = (
+            <TableSmall key={id} id={id} dragHandlers={dragHandlers} />
+          );
           break;
         default:
           break;
@@ -151,34 +169,19 @@ const App = () => {
       let component;
       const { type } = piece;
       switch (type) {
-        case "mop3":
+        case DEVICE_TYPES.MEETING_OWL_3:
           component = (
-            <MeetingOwl3
-              key={id}
-              id={id}
-              activeDrags={activeDrags}
-              dragHandlers={dragHandlers}
-            />
+            <MeetingOwl3 key={id} id={id} dragHandlers={dragHandlers} />
           );
           break;
-        case "wbo":
+        case DEVICE_TYPES.WHITEBOARD_OWL:
           component = (
-            <WhiteboardOwl
-              key={id}
-              id={id}
-              activeDrags={activeDrags}
-              dragHandlers={dragHandlers}
-            />
+            <WhiteboardOwl key={id} id={id} dragHandlers={dragHandlers} />
           );
           break;
-        case "mhq":
+        case DEVICE_TYPES.MEETING_HQ:
           component = (
-            <MeetingHQ
-              key={id}
-              id={id}
-              activeDrags={activeDrags}
-              dragHandlers={dragHandlers}
-            />
+            <MeetingHQ key={id} id={id} dragHandlers={dragHandlers} />
           );
           break;
         default:
@@ -194,6 +197,12 @@ const App = () => {
 
   const [roomDevices, setRoomDevices] = useState(createDevices(devices));
 
+  // Rebuild components when redux state changes
+  useEffect(() => {
+    setRoomFurniture(createFurniture(furniture));
+    setRoomDevices(createDevices(devices));
+  }, [furniture, devices]);
+
   return (
     <>
       <div className="flex flex-col items-center justify-center">
@@ -204,12 +213,7 @@ const App = () => {
             </div>
           </div>
           <div className="my-4 inline-block">
-            <BasicModal
-              roomWidth={roomWidth}
-              roomLength={roomLength}
-              setRoomWidth={setRoomWidth}
-              setRoomLength={setRoomLength}
-            ></BasicModal>
+            <BasicModal />
             <ConfirmationModal></ConfirmationModal>
           </div>
         </div>

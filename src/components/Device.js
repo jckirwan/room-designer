@@ -7,7 +7,7 @@ import {
   DEVICE_TYPES,
 } from "../constants/Room";
 import { Menu, MenuItem } from "../components/Menu";
-import { RotateCw, RotateCcw } from "react-feather";
+import { RotateCw, RotateCcw , Copy, Trash2 } from "react-feather";
 import { getNextRotation, getPreviousRotation } from "../utils";
 import { addDevice, removeDevice, updateDeviceRotation } from "../slices/room";
 
@@ -85,7 +85,7 @@ const Device = ({
                 );
               }}
             >
-              <RotateCw className="w-[23px] font-sans h-[23px] text-black inline cursor:pointer mt-[-5px] ml-[7px]" />
+              <RotateCw className="w-[29px] font-sans h-[21px] text-black inline cursor:pointer mt-[-5px]" />
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -98,7 +98,7 @@ const Device = ({
                 );
               }}
             >
-              <RotateCcw className="w-[23px] font-sans h-[23px] text-black inline cursor:pointer mt-[-5px] ml-[7px]" />
+              <RotateCcw className="w-[29px] font-sans h-[21px] text-black inline cursor:pointer mt-[-5px]" />
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -114,14 +114,14 @@ const Device = ({
                 );
               }}
             >
-              Duplicate
+              <Copy className="w-[29px] font-sans h-[21px] text-black inline cursor:pointer mt-[-5px] "></Copy>
             </MenuItem>
             <MenuItem
               onClick={() => {
                 dispatch(removeDevice(id));
               }}
             >
-              Delete
+              <Trash2 className="w-[31px] font-sans h-[21px] text-black inline cursor:pointer mt-[-5px] "></Trash2>
             </MenuItem>
           </Menu>
         )}

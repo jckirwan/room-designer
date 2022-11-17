@@ -11,7 +11,7 @@ import {
   removeFurniture,
   addFurniture,
 } from "../slices/room";
-import { RotateCw, RotateCcw } from "react-feather";
+import { RotateCw, RotateCcw , Copy, Trash2} from "react-feather";
 import { Menu, MenuItem } from "../components/Menu";
 import { getNextRotation, getPreviousRotation } from "../utils";
 
@@ -91,7 +91,7 @@ const Furniture = ({
                 );
               }}
             >
-              <RotateCw className="w-[23px] font-sans h-[23px] text-black inline cursor:pointer mt-[-5px] ml-[7px]" />
+              <RotateCw className="w-[30px] font-sans h-[23px] text-black inline cursor:pointer mt-[-5px]" />
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -104,7 +104,7 @@ const Furniture = ({
                 );
               }}
             >
-              <RotateCcw className="w-[23px] font-sans h-[23px] text-black inline cursor:pointer mt-[-5px] ml-[7px]" />
+              <RotateCcw className="w-[30px] font-sans h-[23px] text-black inline cursor:pointer mt-[-5px]" />
             </MenuItem>
             <MenuItem
               onClick={() => {
@@ -120,14 +120,14 @@ const Furniture = ({
                 );
               }}
             >
-              Duplicate
+            <Copy className="w-[29px] font-sans h-[21px] text-black inline cursor:pointer mt-[-5px] "></Copy>
             </MenuItem>
             <MenuItem
               onClick={() => {
                 dispatch(removeFurniture(id));
               }}
             >
-              Delete
+             <Trash2 className="w-[29.5px] font-sans h-[21px] text-black inline cursor:pointer mt-[-5px] "></Trash2>
             </MenuItem>
           </Menu>
         )}

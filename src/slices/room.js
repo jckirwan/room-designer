@@ -178,16 +178,50 @@ const roomSlice = createSlice({
         roomWidth: state.roomWidth,
         roomLength: state.roomLength,
       });
+      const meetingHQ = createItem({
+        type: DEVICE_TYPES.MEETING_HQ,
+        dimensions: DEVICE_DIMENSIONS,
+        roomWidth: state.roomWidth,
+        roomLength: state.roomLength,
+      });
+      const whiteboard = createItem({
+        type: FURNITURE_TYPES.WHITEBOARD,
+        dimensions: FURNITURE_DIMENSIONS,
+        roomWidth: state.roomWidth,
+        roomLength: state.roomLength,
+      });
+      const whiteboardOwl = createItem({
+        type: DEVICE_TYPES.WHITEBOARD_OWL,
+        dimensions: DEVICE_DIMENSIONS,
+        roomWidth: state.roomWidth,
+        roomLength: state.roomLength,
+      });
       state.furniture[smallTable.id] = {
         ...smallTable,
       };
       state.furniture[tv.id] = {
         ...tv,
         x: 0,
-        y: 150,
+        y: 180,
       };
       state.devices[meetingOwl3.id] = {
         ...meetingOwl3,
+      };
+      state.devices[meetingHQ.id] = {
+        ...meetingHQ,
+        y: 250,
+      };
+      state.devices[whiteboardOwl.id] = {
+        ...whiteboardOwl,
+        x: -10,
+        y: 280,
+        rotation: 270,
+      };
+      state.furniture[whiteboard.id] = {
+        ...whiteboard,
+        x: 480,
+        y: 200,
+        rotation: 180,
       };
     },
     createConferenceRoom(state) {
@@ -231,6 +265,12 @@ const roomSlice = createSlice({
         roomWidth: state.roomWidth,
         roomLength: state.roomLength,
       });
+      const meetingHQ = createItem({
+        type: DEVICE_TYPES.MEETING_HQ,
+        dimensions: DEVICE_DIMENSIONS,
+        roomWidth: state.roomWidth,
+        roomLength: state.roomLength,
+      });
       state.furniture[mediumTable.id] = {
         ...mediumTable,
       };
@@ -258,6 +298,11 @@ const roomSlice = createSlice({
         x: 480,
         y: 710,
         rotation: 180,
+      };
+      state.devices[meetingHQ.id] = {
+        ...meetingHQ,
+        x: 320,
+        y: 380,
       };
     },
   },

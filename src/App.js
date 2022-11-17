@@ -8,7 +8,11 @@ import {
   TableSmall,
   TableMedium,
   TableLarge,
-  TV} from "./components/Furniture";
+  TV,
+  Whiteboard,
+  Podium,
+  PoolTable
+} from "./components/Furniture";
 import MenuIcon from "./components/MenuIcon";
 import BasicModal from "./components/modal";
 import ConfirmationModal from "./components/ConfirmationModal";
@@ -25,7 +29,7 @@ import {
   toggleAudioRanges,
   toggleVideoRanges,
   createHuddleRoom,
-  createConferenceRoom
+  createConferenceRoom,
 } from "./slices/room";
 
 const DEFAULT_DELTAS = {
@@ -40,9 +44,14 @@ const DEFAULT_CONTROLLED = {
 
 const App = () => {
   const dispatch = useDispatch();
-  const { devices, furniture, roomWidth, roomLength, videoRangesEnabled, audioRangesEnabled } = useSelector(
-    (state) => state.room
-  );
+  const {
+    devices,
+    furniture,
+    roomWidth,
+    roomLength,
+    videoRangesEnabled,
+    audioRangesEnabled,
+  } = useSelector((state) => state.room);
   const [activeDrags, setActiveDrags] = useState(0);
   const [deltaPosition, setDeltaPosition] = useState(DEFAULT_DELTAS);
   const [controlledPosition, setControlledPosition] =
@@ -142,11 +151,18 @@ const App = () => {
       let component;
       const { type } = piece;
       switch (type) {
+        case FURNITURE_TYPES.POOL_TABLE:
+          component = <PoolTable key={id} id={id} dragHandlers={dragHandlers} />;
+          break;
         case FURNITURE_TYPES.PODIUM:
+          component = <Podium key={id} id={id} dragHandlers={dragHandlers} />;
+          break;
         case FURNITURE_TYPES.CHAIR:
           component = <Chair key={id} id={id} dragHandlers={dragHandlers} />;
           break;
         case FURNITURE_TYPES.WHITEBOARD:
+          component = <Whiteboard key={id} id={id} dragHandlers={dragHandlers} />;
+          break;
         case FURNITURE_TYPES.SCREEN:
           component = <TV key={id} id={id} dragHandlers={dragHandlers} />;
           break;
@@ -229,16 +245,19 @@ const App = () => {
             <BasicModal />
             <ConfirmationModal></ConfirmationModal>
             <button
-              className={`button-secondary ${videoRangesEnabled && "bg-blue-900 text-white hover:text-white"}`}
+              className={`button-secondary ${
+                videoRangesEnabled && "bg-blue-900 text-white hover:text-white"
+              }`}
               onClick={() => {
                 dispatch(toggleVideoRanges());
               }}
-              
             >
               Toggle Video Range
             </button>
             <button
-              className={`button-secondary ${audioRangesEnabled && "bg-blue-900 text-white hover:text-white"}`}
+              className={`button-secondary ${
+                audioRangesEnabled && "bg-blue-900 text-white hover:text-white"
+              }`}
               onClick={() => {
                 dispatch(toggleAudioRanges());
               }}

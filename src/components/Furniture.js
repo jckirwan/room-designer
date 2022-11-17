@@ -11,7 +11,7 @@ import {
   removeFurniture,
   addFurniture,
 } from "../slices/room";
-import { RotateCw, RotateCcw , Copy, Trash2} from "react-feather";
+import { RotateCw, RotateCcw, Copy, Trash2 } from "react-feather";
 import { Menu, MenuItem } from "../components/Menu";
 import { getNextRotation, getPreviousRotation } from "../utils";
 
@@ -19,7 +19,7 @@ const Furniture = ({
   dragHandlers,
   width,
   height,
-  style,
+  style = {},
   children,
   id,
   ...props
@@ -62,9 +62,9 @@ const Furniture = ({
       >
         <div
           style={{
-            background: style.background || "#eee",
-            border: "1px solid #999",
-            borderRadius: style.borderRadius || 50,
+            background: style?.background || "none",
+            border: style?.background || "1px solid transparent",
+            borderRadius: style?.borderRadius || 50,
             margin: 0,
             display: "flex",
             alignItems: "center",
@@ -120,14 +120,14 @@ const Furniture = ({
                 );
               }}
             >
-            <Copy className="w-[29px] font-sans h-[21px] text-black inline cursor:pointer mt-[-5px] "></Copy>
+              <Copy className="w-[29px] font-sans h-[21px] text-black inline cursor:pointer mt-[-5px] "></Copy>
             </MenuItem>
             <MenuItem
               onClick={() => {
                 dispatch(removeFurniture(id));
               }}
             >
-             <Trash2 className="w-[29.5px] font-sans h-[21px] text-black inline cursor:pointer mt-[-5px] "></Trash2>
+              <Trash2 className="w-[29.5px] font-sans h-[21px] text-black inline cursor:pointer mt-[-5px] "></Trash2>
             </MenuItem>
           </Menu>
         )}
@@ -238,21 +238,57 @@ export const Chair = ({ children, ...props }) => {
 export const TV = ({ children, ...props }) => {
   const { width, height } = FURNITURE_DIMENSIONS[FURNITURE_TYPES.SCREEN];
   return (
-    <Furniture
-      style={{
-        borderRadius: 0,
-        background: "grey",
-        color: "white",
-      }}
-      width={width}
-      height={height}
-      {...props}
-    >
-      {children}
+    <Furniture width={width} height={height} {...props}>
+      <img
+        width={width}
+        height={width}
+        src="assets/img/tv-component.png"
+        draggable={false}
+      />
     </Furniture>
   );
 };
 
+export const Whiteboard = ({ children, ...props }) => {
+  const { width, height } = FURNITURE_DIMENSIONS[FURNITURE_TYPES.WHITEBOARD];
+  return (
+    <Furniture width={width} height={height} {...props}>
+      <img
+        width={width}
+        height={width}
+        src="assets/img/whiteboard-component.png"
+        draggable={false}
+      />
+    </Furniture>
+  );
+};
 
+export const Podium = ({ children, ...props }) => {
+  const { width, height } = FURNITURE_DIMENSIONS[FURNITURE_TYPES.PODIUM];
+  return (
+    <Furniture width={width} height={height} {...props}>
+      <img
+        width={width}
+        height={width}
+        src="assets/img/podium-top.png"
+        draggable={false}
+      />
+    </Furniture>
+  );
+};
+
+export const PoolTable = ({ children, ...props }) => {
+  const { width, height } = FURNITURE_DIMENSIONS[FURNITURE_TYPES.POOL_TABLE];
+  return (
+    <Furniture width={width} height={height} {...props}>
+      <img
+        width={width}
+        height={width}
+        src="assets/img/pool-table.png"
+        draggable={false}
+      />
+    </Furniture>
+  );
+};
 
 export default Furniture;

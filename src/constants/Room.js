@@ -38,6 +38,7 @@ export const FURNITURE_TYPES = {
   SCREEN: "screen",
   PODIUM: "podium",
   WHITEBOARD: "whiteboard",
+  POOL_TABLE: "pool-table",
 };
 
 export const FURNITURE_DIMENSIONS = {
@@ -59,7 +60,7 @@ export const FURNITURE_DIMENSIONS = {
   },
   [FURNITURE_TYPES.SCREEN]: {
     width: 20,
-    height: 200,
+    height: 100,
   },
   [FURNITURE_TYPES.PODIUM]: {
     width: 2 * FOOT,
@@ -68,5 +69,9 @@ export const FURNITURE_DIMENSIONS = {
   [FURNITURE_TYPES.WHITEBOARD]: {
     width: 20,
     height: 200,
+  },
+  [FURNITURE_TYPES.POOL_TABLE]: {
+    width: 7 * FOOT,
+    height: 3.5 * FOOT,
   },
 };

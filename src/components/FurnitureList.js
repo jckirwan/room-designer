@@ -81,7 +81,7 @@ const FurnitureList = () => {
             <span className="font-sans text-sm">Whiteboard</span>
             <FurnitureImage
               size={50}
-              src="assets/img/minus.png"
+              src="assets/img/whiteboard-menu.png"
               type={FURNITURE_TYPES.WHITEBOARD}
               name="Whiteboard"
               className="my-4 hover:cursor-grab active:cursor-grabbing"
@@ -90,7 +90,7 @@ const FurnitureList = () => {
             <FurnitureImage
               size={50}
               src="assets/img/pool-table.png"
-              type={FURNITURE_TYPES.WHITEBOARD}
+              type={FURNITURE_TYPES.POOL_TABLE}
               name="Sofa"
               className="my-4 hover:cursor-grab active:cursor-grabbing"
             />

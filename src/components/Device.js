@@ -29,7 +29,7 @@ const Device = ({
   };
   return (
     <Draggable
-      bounds="parent"
+      // bounds="parent"
       grid={GRID_DIMENSIONS_PIXEL}
       onStop={dragHandlers.onDrop}
       onDrag={dragHandlers.onDrag}

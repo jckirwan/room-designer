@@ -25,6 +25,8 @@ import {
   updateFurnitureCoordinates,
   toggleAudioRanges,
   toggleVideoRanges,
+  createHuddleRoom,
+  createConferenceRoom
 } from "./slices/room";
 
 const DEFAULT_DELTAS = {
@@ -243,6 +245,22 @@ const App = () => {
               }}
             >
               Toggle Audio Range
+            </button>
+            <button
+              className="button-secondary"
+              onClick={() => {
+                dispatch(createHuddleRoom());
+              }}
+            >
+              Huddle Room
+            </button>
+            <button
+              className="button-secondary"
+              onClick={() => {
+                dispatch(createConferenceRoom());
+              }}
+            >
+              Conference Room
             </button>
           </div>
         </div>

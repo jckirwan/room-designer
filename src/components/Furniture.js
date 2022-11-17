@@ -33,7 +33,7 @@ const Furniture = ({
   };
   return (
     <Draggable
-      bounds="parent"
+      // bounds="parent"
       grid={GRID_DIMENSIONS_PIXEL}
       onDrag={dragHandlers.onDrag}
       {...dragHandlers}

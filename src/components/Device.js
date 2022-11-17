@@ -140,6 +140,12 @@ export const MeetingOwl3 = ({ id, dragHandlers }) => {
         src="assets/img/mop3.png"
         alt="Meeting Owl 3"
       />
+      <span
+            className={`animate-ping absolute inline-flex rounded-full bg-blue-200 opacity-75 
+        w-[140px] h-[140px]
+      `}
+          ></span>
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
     </Device>
   );
 };

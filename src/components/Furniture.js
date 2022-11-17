@@ -17,8 +17,6 @@ const getNextRotation = (rotation) => {
 const MenuItem = ({ onClick, last, children }) => {
   return (
     <div
-      // style={{ padding: 5, borderBottom: last ? "none" : "1px solid grey" }}
-      style={{ padding: 5}}
       onClick={onClick}
     >
       {children}
@@ -28,7 +26,7 @@ const MenuItem = ({ onClick, last, children }) => {
 
 const Menu = ({ children }) => {
   return (
-    <div className="absolute w-[38px] -bottom-[29px] z-10 select-none ">
+    <div className="absolute w-[38px] -bottom-[24px] z-10 select-none ">
       {children}
     </div>
   );
@@ -107,7 +105,7 @@ const Furniture = ({
                 );
               }}
             >
-              <RotateCw className="w-[23px] font-sans h-[23px] text-black inline cursor:pointer mt-[-5px] ml-[2px]" />
+              <RotateCw className="w-[23px] font-sans h-[23px] text-black inline cursor:pointer mt-[-5px] ml-[7px]" />
             </MenuItem>
           </Menu>
         )}

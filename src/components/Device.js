@@ -162,4 +162,17 @@ export const MeetingHQ = ({ id, dragHandlers }) => {
   );
 };
 
+export const ExpansionMic = ({ id, dragHandlers }) => {
+  const { width, height } = DEVICE_DIMENSIONS[DEVICE_TYPES.EXPANSION_MIC];
+  return (
+    <Device id={id} dragHandlers={dragHandlers} width={width} height={height}>
+      <img
+        draggable="false"
+        src="assets/img/expansion-mic.png"
+        alt="Expansion Mic"
+      />
+    </Device>
+  );
+};
+
 export default Device;

@@ -7,7 +7,6 @@ const DeviceImage = ({ size, src, name, type, className }) => {
   const dispatch = useDispatch();
   const { width, height } = DEVICE_DIMENSIONS[type];
   const onClick = () => {
-    console.log("adding device");
     dispatch(addDevice({ type, width, height }));
   };
   return (
@@ -49,6 +48,13 @@ const DeviceList = () => {
           src="assets/img/mhq.png"
           type={DEVICE_TYPES.MEETING_HQ}
           name="Meeting HQ"
+          className="my-4 hover:cursor-grab active:cursor-grabbing"
+        />
+        <DeviceImage
+          size={size}
+          src="assets/img/expansion-mic.png"
+          type={DEVICE_TYPES.EXPANSION_MIC}
+          name="Expansion Mic"
           className="my-4 hover:cursor-grab active:cursor-grabbing"
         />
       </div>

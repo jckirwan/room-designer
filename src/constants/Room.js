@@ -8,6 +8,7 @@ export const DEVICE_TYPES = {
   MEETING_OWL_3: "meeting-owl-3",
   WHITEBOARD_OWL: "whiteboard-owl",
   MEETING_HQ: "meeting-hq",
+  EXPANSION_MIC: "expansion-mic",
 };
 
 export const DEVICE_DIMENSIONS = {
@@ -20,6 +21,10 @@ export const DEVICE_DIMENSIONS = {
     height: FOOT,
   },
   [DEVICE_TYPES.MEETING_HQ]: {
+    width: FOOT,
+    height: FOOT,
+  },
+  [DEVICE_TYPES.EXPANSION_MIC]: {
     width: FOOT,
     height: FOOT,
   },

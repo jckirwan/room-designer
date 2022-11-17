@@ -13,7 +13,7 @@ import {
 import MenuIcon from "./components/MenuIcon";
 import BasicModal from "./components/modal";
 import ConfirmationModal from "./components/ConfirmationModal";
-import { MeetingOwl3, WhiteboardOwl, MeetingHQ } from "./components/Device";
+import { MeetingOwl3, WhiteboardOwl, MeetingHQ, ExpansionMic } from "./components/Device";
 import { DEVICE_TYPES, FURNITURE_TYPES } from "./constants/Room";
 import {
   updateDeviceCoordinates,
@@ -182,6 +182,11 @@ const App = () => {
         case DEVICE_TYPES.MEETING_HQ:
           component = (
             <MeetingHQ key={id} id={id} dragHandlers={dragHandlers} />
+          );
+          break;
+        case DEVICE_TYPES.EXPANSION_MIC:
+          component = (
+            <ExpansionMic key={id} id={id} dragHandlers={dragHandlers} />
           );
           break;
         default:

@@ -1,6 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { FOOT } from "../constants/Room";
 import { v4 as uuidv4 } from "uuid";
+import {
+  DEVICE_TYPES,
+  DEVICE_DIMENSIONS,
+  FURNITURE_TYPES,
+  FURNITURE_DIMENSIONS,
+} from "../constants/Room";
 
 const centeredInRoom = ({ roomWidth, roomLength, width, height }) => {
   const x = (roomWidth * FOOT) / 2;
@@ -15,17 +21,42 @@ const centeredInRoom = ({ roomWidth, roomLength, width, height }) => {
   };
 };
 
+const createItem = ({ type, dimensions, roomWidth, roomLength }) => {
+  const id = uuidv4();
+
+  const centeredCoordinates = centeredInRoom({
+    roomWidth,
+    roomLength,
+    width: dimensions[type].width,
+    height: dimensions[type].height,
+  });
+
+  return {
+    id,
+    type: type,
+    ...centeredCoordinates,
+  };
+};
+
 const initialState = {
   roomWidth: 20,
   roomLength: 10,
   devices: {},
   furniture: {},
+  videoRangesEnabled: false,
+  audioRangesEnabled: false,
 };
 
 const roomSlice = createSlice({
   name: "room",
   initialState,
   reducers: {
+    toggleVideoRanges(state) {
+      state.videoRangesEnabled = !state.videoRangesEnabled;
+    },
+    toggleAudioRanges(state) {
+      state.audioRangesEnabled = !state.audioRangesEnabled;
+    },
     addDevice(state, action) {
       const {
         id = uuidv4(),
@@ -124,6 +155,111 @@ const roomSlice = createSlice({
     setRoomLength(state, action) {
       state.roomLength = Number(action.payload);
     },
+    createHuddleRoom(state) {
+      state.devices = {};
+      state.furniture = {};
+      state.roomLength = 10;
+      state.roomWidth = 10;
+      const smallTable = createItem({
+        type: FURNITURE_TYPES.TABLE_SMALL,
+        dimensions: FURNITURE_DIMENSIONS,
+        roomWidth: state.roomWidth,
+        roomLength: state.roomLength,
+      });
+      const tv = createItem({
+        type: FURNITURE_TYPES.SCREEN,
+        dimensions: FURNITURE_DIMENSIONS,
+        roomWidth: state.roomWidth,
+        roomLength: state.roomLength,
+      });
+      const meetingOwl3 = createItem({
+        type: DEVICE_TYPES.MEETING_OWL_3,
+        dimensions: DEVICE_DIMENSIONS,
+        roomWidth: state.roomWidth,
+        roomLength: state.roomLength,
+      });
+      state.furniture[smallTable.id] = {
+        ...smallTable,
+      };
+      state.furniture[tv.id] = {
+        ...tv,
+        x: 0,
+        y: 150,
+      };
+      state.devices[meetingOwl3.id] = {
+        ...meetingOwl3,
+      };
+    },
+    createConferenceRoom(state) {
+      state.devices = {};
+      state.furniture = {};
+      state.roomLength = 15;
+      state.roomWidth = 20;
+      const mediumTable = createItem({
+        type: FURNITURE_TYPES.TABLE_MEDIUM,
+        dimensions: FURNITURE_DIMENSIONS,
+        roomWidth: state.roomWidth,
+        roomLength: state.roomLength,
+      });
+      const tv = createItem({
+        type: FURNITURE_TYPES.SCREEN,
+        dimensions: FURNITURE_DIMENSIONS,
+        roomWidth: state.roomWidth,
+        roomLength: state.roomLength,
+      });
+      const whiteboard = createItem({
+        type: FURNITURE_TYPES.WHITEBOARD,
+        dimensions: FURNITURE_DIMENSIONS,
+        roomWidth: state.roomWidth,
+        roomLength: state.roomLength,
+      });
+      const meetingOwl3 = createItem({
+        type: DEVICE_TYPES.MEETING_OWL_3,
+        dimensions: DEVICE_DIMENSIONS,
+        roomWidth: state.roomWidth,
+        roomLength: state.roomLength,
+      });
+      const secondMeetingOwl3 = createItem({
+        type: DEVICE_TYPES.MEETING_OWL_3,
+        dimensions: DEVICE_DIMENSIONS,
+        roomWidth: state.roomWidth,
+        roomLength: state.roomLength,
+      });
+      const whiteboardOwl = createItem({
+        type: DEVICE_TYPES.WHITEBOARD_OWL,
+        dimensions: DEVICE_DIMENSIONS,
+        roomWidth: state.roomWidth,
+        roomLength: state.roomLength,
+      });
+      state.furniture[mediumTable.id] = {
+        ...mediumTable,
+      };
+      state.furniture[tv.id] = {
+        ...tv,
+        x: 0,
+        y: 280,
+      };
+      state.furniture[whiteboard.id] = {
+        ...whiteboard,
+        x: 490,
+        y: -90,
+        rotation: 90,
+      };
+      state.devices[meetingOwl3.id] = {
+        ...meetingOwl3,
+        x: 320,
+      };
+      state.devices[secondMeetingOwl3.id] = {
+        ...secondMeetingOwl3,
+        x: 630,
+      };
+      state.devices[whiteboardOwl.id] = {
+        ...whiteboardOwl,
+        x: 480,
+        y: 710,
+        rotation: 180,
+      };
+    },
   },
 });
 
@@ -139,6 +275,10 @@ export const {
   removeFurniture,
   setRoomWidth,
   setRoomLength,
+  toggleVideoRanges,
+  toggleAudioRanges,
+  createHuddleRoom,
+  createConferenceRoom,
 } = roomSlice.actions;
 
 export default roomSlice.reducer;

@@ -12,11 +12,20 @@ import {
 import MenuIcon from "./components/MenuIcon";
 import BasicModal from "./components/modal";
 import ConfirmationModal from "./components/ConfirmationModal";
-import { MeetingOwl3, WhiteboardOwl, MeetingHQ, ExpansionMic } from "./components/Device";
+import {
+  MeetingOwl3,
+  WhiteboardOwl,
+  MeetingHQ,
+  ExpansionMic,
+} from "./components/Device";
 import { DEVICE_TYPES, FURNITURE_TYPES } from "./constants/Room";
 import {
   updateDeviceCoordinates,
   updateFurnitureCoordinates,
+  toggleAudioRanges,
+  toggleVideoRanges,
+  createHuddleRoom,
+  createConferenceRoom
 } from "./slices/room";
 
 const DEFAULT_DELTAS = {
@@ -31,7 +40,7 @@ const DEFAULT_CONTROLLED = {
 
 const App = () => {
   const dispatch = useDispatch();
-  const { devices, furniture, roomWidth, roomLength } = useSelector(
+  const { devices, furniture, roomWidth, roomLength, videoRangesEnabled, audioRangesEnabled } = useSelector(
     (state) => state.room
   );
   const [activeDrags, setActiveDrags] = useState(0);
@@ -216,9 +225,42 @@ const App = () => {
               <MenuIcon />
             </div>
           </div>
-          <div className="my-4 inline-block">
+          <div className="my-4 inline-block z-50">
             <BasicModal />
             <ConfirmationModal></ConfirmationModal>
+            <button
+              className={`button-secondary ${videoRangesEnabled && "bg-blue-900 text-white hover:text-white"}`}
+              onClick={() => {
+                dispatch(toggleVideoRanges());
+              }}
+              
+            >
+              Toggle Video Range
+            </button>
+            <button
+              className={`button-secondary ${audioRangesEnabled && "bg-blue-900 text-white hover:text-white"}`}
+              onClick={() => {
+                dispatch(toggleAudioRanges());
+              }}
+            >
+              Toggle Audio Range
+            </button>
+            <button
+              className="button-secondary"
+              onClick={() => {
+                dispatch(createHuddleRoom());
+              }}
+            >
+              Huddle Room
+            </button>
+            <button
+              className="button-secondary"
+              onClick={() => {
+                dispatch(createConferenceRoom());
+              }}
+            >
+              Conference Room
+            </button>
           </div>
         </div>
 
@@ -226,7 +268,7 @@ const App = () => {
           <div className="flex flex-col">
             <DeviceList />
           </div>
-          <div className="w-fit">
+          <div className="w-fit overflow-hidden">
             <Room height={roomLength} width={roomWidth}>
               {roomFurniture}
               {roomDevices}
@@ -236,7 +278,9 @@ const App = () => {
             <FurnitureList />
           </div>
         </div>
-        <div className="flex items-center justify-center text-lg">{roomLength} ft x {roomWidth} ft</div> 
+        <div className="flex items-center justify-center text-lg">
+          {roomLength} ft x {roomWidth} ft
+        </div>
       </div>
     </>
   );

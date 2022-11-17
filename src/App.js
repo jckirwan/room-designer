@@ -232,6 +232,7 @@ const App = () => {
             <FurnitureList />
           </div>
         </div>
+        <div className="flex items-center justify-center text-lg">{roomLength} ft x {roomWidth} ft</div> 
       </div>
     </>
   );

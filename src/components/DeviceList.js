@@ -28,35 +28,45 @@ const DeviceList = () => {
   return (
     <>
       <div className="mx-8 flex flex-col items-center bg-white h-full px-8 rounded pt-8 shadow-lg">
-        <h3 className="font-sans_semibold text-xl">Devices</h3>
+        <h3 className="font-sans_semibold text-xl pb-2">Devices</h3>
+        
+        <div className="font-sans text-sm pb-7">Meeting Owl 3
         <DeviceImage
           size={size}
           src="assets/img/mop3.png"
           type={DEVICE_TYPES.MEETING_OWL_3}
           name="Meeting Owl 3"
-          className="my-4 hover:cursor-grab active:cursor-grabbing"
+          className="mt-2 ml-6 hover:cursor-grab active:cursor-grabbing"
         />
+        </div>
+        <div className="font-sans text-sm pb-7">Whiteboard Owl
         <DeviceImage
           size={size}
           src="assets/img/wbo.png"
           type={DEVICE_TYPES.WHITEBOARD_OWL}
           name="Whiteboard Owl"
-          className="my-4 hover:cursor-grab active:cursor-grabbing"
+          className="mt-2 ml-6 hover:cursor-grab active:cursor-grabbing"
         />
+        </div>
+        <div className="font-sans text-sm pb-7 ml-[5px]">
+          <span className="ml-[5px]">MHQ</span>
         <DeviceImage
           size={size}
           src="assets/img/mhq.png"
           type={DEVICE_TYPES.MEETING_HQ}
           name="Meeting HQ"
-          className="my-4 hover:cursor-grab active:cursor-grabbing"
+          className="mt-2 hover:cursor-grab active:cursor-grabbing"
         />
+        </div>
+        <div className="font-sans text-sm pb-7">Expansion Mic
         <DeviceImage
           size={size}
           src="assets/img/expansion-mic.png"
           type={DEVICE_TYPES.EXPANSION_MIC}
           name="Expansion Mic"
-          className="my-4 hover:cursor-grab active:cursor-grabbing"
+          className="mt-2 ml-6 hover:cursor-grab active:cursor-grabbing"
         />
+        </div>
       </div>
     </>
   );

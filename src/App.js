@@ -8,8 +8,7 @@ import {
   TableSmall,
   TableMedium,
   TableLarge,
-  TV,
-} from "./components/Furniture";
+  TV} from "./components/Furniture";
 import MenuIcon from "./components/MenuIcon";
 import BasicModal from "./components/modal";
 import ConfirmationModal from "./components/ConfirmationModal";

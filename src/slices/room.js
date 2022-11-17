@@ -20,12 +20,20 @@ const initialState = {
   roomLength: 10,
   devices: {},
   furniture: {},
+  videoRangesEnabled: false,
+  audioRangesEnabled: false,
 };
 
 const roomSlice = createSlice({
   name: "room",
   initialState,
   reducers: {
+    toggleVideoRanges(state) {
+      state.videoRangesEnabled = !state.videoRangesEnabled;
+    },
+    toggleAudioRanges(state) {
+      state.audioRangesEnabled = !state.audioRangesEnabled;
+    },
     addDevice(state, action) {
       const {
         id = uuidv4(),
@@ -139,6 +147,8 @@ export const {
   removeFurniture,
   setRoomWidth,
   setRoomLength,
+  toggleVideoRanges,
+  toggleAudioRanges
 } = roomSlice.actions;
 
 export default roomSlice.reducer;

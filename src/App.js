@@ -13,11 +13,18 @@ import {
 import MenuIcon from "./components/MenuIcon";
 import BasicModal from "./components/modal";
 import ConfirmationModal from "./components/ConfirmationModal";
-import { MeetingOwl3, WhiteboardOwl, MeetingHQ, ExpansionMic } from "./components/Device";
+import {
+  MeetingOwl3,
+  WhiteboardOwl,
+  MeetingHQ,
+  ExpansionMic,
+} from "./components/Device";
 import { DEVICE_TYPES, FURNITURE_TYPES } from "./constants/Room";
 import {
   updateDeviceCoordinates,
   updateFurnitureCoordinates,
+  toggleAudioRanges,
+  toggleVideoRanges,
 } from "./slices/room";
 
 const DEFAULT_DELTAS = {
@@ -217,9 +224,25 @@ const App = () => {
               <MenuIcon />
             </div>
           </div>
-          <div className="my-4 inline-block">
+          <div className="my-4 inline-block z-50">
             <BasicModal />
             <ConfirmationModal></ConfirmationModal>
+            <button
+              className="button-secondary"
+              onClick={() => {
+                dispatch(toggleVideoRanges());
+              }}
+            >
+              Toggle Video Range
+            </button>
+            <button
+              className="button-secondary"
+              onClick={() => {
+                dispatch(toggleAudioRanges());
+              }}
+            >
+              Toggle Audio Range
+            </button>
           </div>
         </div>
 
@@ -237,7 +260,9 @@ const App = () => {
             <FurnitureList />
           </div>
         </div>
-        <div className="flex items-center justify-center text-lg">{roomLength} ft x {roomWidth} ft</div> 
+        <div className="flex items-center justify-center text-lg">
+          {roomLength} ft x {roomWidth} ft
+        </div>
       </div>
     </>
   );

@@ -132,6 +132,9 @@ const Device = ({
 
 export const MeetingOwl3 = ({ id, dragHandlers }) => {
   const { width, height } = DEVICE_DIMENSIONS[DEVICE_TYPES.MEETING_OWL_3];
+  const { videoRangesEnabled, audioRangesEnabled } = useSelector(
+    (state) => state.room
+  );
   return (
     <Device id={id} dragHandlers={dragHandlers} width={width} height={height}>
       <img
@@ -140,12 +143,26 @@ export const MeetingOwl3 = ({ id, dragHandlers }) => {
         src="assets/img/mop3.png"
         alt="Meeting Owl 3"
       />
-      <span
+      {videoRangesEnabled && (
+        <>
+          <span
             className={`animate-ping absolute inline-flex rounded-full bg-blue-200 opacity-75 
-        w-[140px] h-[140px]
+        w-[250px] h-[250px] -z-20
       `}
           ></span>
-          <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500 -z-20"></span>
+        </>
+      )}
+      {audioRangesEnabled && (
+        <>
+          <span
+            className={`animate-ping absolute inline-flex rounded-full bg-red-200 opacity-50 
+      w-[450px] h-[450px] -z-20
+    `}
+          ></span>
+          <span className="float inline-flex rounded-full h-3 w-3 bg-red-200 -z-20"></span>
+        </>
+      )}
     </Device>
   );
 };
@@ -170,6 +187,9 @@ export const MeetingHQ = ({ id, dragHandlers }) => {
 
 export const ExpansionMic = ({ id, dragHandlers }) => {
   const { width, height } = DEVICE_DIMENSIONS[DEVICE_TYPES.EXPANSION_MIC];
+  const { videoRangesEnabled, audioRangesEnabled } = useSelector(
+    (state) => state.room
+  );
   return (
     <Device id={id} dragHandlers={dragHandlers} width={width} height={height}>
       <img
@@ -177,6 +197,16 @@ export const ExpansionMic = ({ id, dragHandlers }) => {
         src="assets/img/expansion-mic.png"
         alt="Expansion Mic"
       />
+      {audioRangesEnabled && (
+        <>
+          <span
+            className={`animate-ping absolute inline-flex rounded-full bg-red-200 opacity-50 
+        w-[200px] h-[200px] -z-20
+      `}
+          ></span>
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-red-200 -z-20"></span>
+        </>
+      )}
     </Device>
   );
 };

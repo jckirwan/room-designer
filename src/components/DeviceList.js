@@ -10,16 +10,18 @@ const DeviceImage = ({ size, src, name, type, className }) => {
     dispatch(addDevice({ type, width, height }));
   };
   return (
-    <img
-      width={size}
-      height={size}
-      src={src}
-      alt={name}
-      title={name}
-      className={className}
-      draggable="false"
-      onClick={onClick}
-    />
+    <>
+      <img
+        width={size}
+        height={size}
+        src={src}
+        alt={name}
+        title={`Add ${name}`}
+        className={className}
+        draggable="false"
+        onClick={onClick}
+      />
+    </>
   );
 };
 
@@ -34,28 +36,29 @@ const DeviceList = () => {
           src="assets/img/mop3.png"
           type={DEVICE_TYPES.MEETING_OWL_3}
           name="Meeting Owl 3"
-          className="my-4 hover:cursor-grab active:cursor-grabbing"
+          className="my-4 hover:cursor-crosshair"
         />
+        <span></span>
         <DeviceImage
           size={size}
           src="assets/img/wbo.png"
           type={DEVICE_TYPES.WHITEBOARD_OWL}
           name="Whiteboard Owl"
-          className="my-4 hover:cursor-grab active:cursor-grabbing"
-        />
+          className="my-4 hover:cursor-crosshair"
+        ></DeviceImage>
         <DeviceImage
           size={size}
           src="assets/img/mhq.png"
           type={DEVICE_TYPES.MEETING_HQ}
           name="Meeting HQ"
-          className="my-4 hover:cursor-grab active:cursor-grabbing"
+          className="my-4 hover:cursor-crosshair"
         />
         <DeviceImage
           size={size}
           src="assets/img/expansion-mic.png"
           type={DEVICE_TYPES.EXPANSION_MIC}
           name="Expansion Mic"
-          className="my-4 hover:cursor-grab active:cursor-grabbing"
+          className="my-4 hover:cursor-crosshair"
         />
       </div>
     </>

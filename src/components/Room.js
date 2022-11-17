@@ -24,7 +24,7 @@ const Room = ({ width, height, children, ...props }) => {
         border: "1px solid grey",
       }}
     >
-      <div className="w-full h-full">{children}</div>
+      <div className="w-full h-full drop-target">{children}</div>
     </div>
   );
 };

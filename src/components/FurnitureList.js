@@ -1,22 +1,29 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { addFurniture } from "../slices/room";
+import { FURNITURE_DIMENSIONS, FURNITURE_TYPES } from "../constants/Room";
 
-const FurnitureImage = ({ size, src, name }) => {
-  return <img width={size} height={size} src={src} alt={name} />;
+const FurnitureImage = ({ size, src, type, name, className }) => {
+  const dispatch = useDispatch();
+  const { width, height } = FURNITURE_DIMENSIONS[type];
+  const onClick = () => {
+    dispatch(addFurniture({ type, width, height }));
+  };
+  return (
+    <img
+      width={size}
+      height={size}
+      src={src}
+      alt={name}
+      title={name}
+      className={className}
+      draggable="false"
+      onClick={onClick}
+    />
+  );
 };
 
 const FurnitureList = () => {
-  const FurnitureImage = ({ size, src, name, className }) => {
-    return (
-      <img
-        width={size}
-        height={size}
-        src={src}
-        alt={name}
-        title={name}
-        className={className}
-      />
-    );
-  };
   return (
     <>
       <div className="mx-8  bg-white h-full px-8 rounded pt-8 shadow-lg">
@@ -25,25 +32,29 @@ const FurnitureList = () => {
           <div className="flex flex-col items-center mr-6">
             <FurnitureImage
               size={100}
-              src="assets/img/conference.svg"
+              src="assets/img/conference-large.png"
+              type={FURNITURE_TYPES.TABLE_LARGE}
               name="Table large"
               className="rotate my-4 hover:cursor-grab active:cursor-grabbing"
             />
             <FurnitureImage
               size={75}
-              src="assets/img/conference.svg"
+              src="assets/img/conference-medium.png"
+              type={FURNITURE_TYPES.TABLE_MEDIUM}
               name="Table medium"
               className="my-4 hover:cursor-grab active:cursor-grabbing"
             />
             <FurnitureImage
               size={50}
-              src="assets/img/conference.svg"
+              src="assets/img/conference-small.png"
+              type={FURNITURE_TYPES.TABLE_SMALL}
               name="Table small"
               className="my-4 hover:cursor-grab active:cursor-grabbing"
             />
             <FurnitureImage
-              size={25}
+              size={50}
               src="assets/img/chair.svg"
+              type={FURNITURE_TYPES.CHAIR}
               name="Chair"
               className="my-4 hover:cursor-grab active:cursor-grabbing"
             />
@@ -52,18 +63,19 @@ const FurnitureList = () => {
             <FurnitureImage
               size={50}
               src="assets/img/tv.svg"
-              name="Screen"
+              type={FURNITURE_TYPES.SCREEN}
               className="my-4 hover:cursor-grab active:cursor-grabbing"
             />
             <FurnitureImage
               size={50}
               src="assets/img/podium.svg"
-              name="Podium"
+              type={FURNITURE_TYPES.PODIUM}
               className="my-4 hover:cursor-grab active:cursor-grabbing"
             />
             <FurnitureImage
               size={50}
               src="assets/img/free-whiteboard-icon.png"
+              type={FURNITURE_TYPES.WHITEBOARD}
               name="Whiteboard"
               className="my-4 hover:cursor-grab active:cursor-grabbing"
             />

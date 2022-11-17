@@ -1,17 +1,28 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Draggable from "react-draggable";
-import { GRID_DIMENSIONS_PIXEL } from "../constants/Room";
+import {
+  GRID_DIMENSIONS_PIXEL,
+  DEVICE_DIMENSIONS,
+  DEVICE_TYPES,
+} from "../constants/Room";
+import { Menu, MenuItem } from "../components/Menu";
+import { RotateCw, RotateCcw } from "react-feather";
+import { getNextRotation, getPreviousRotation } from "../utils";
+import { addDevice, removeDevice, updateDeviceRotation } from "../slices/room";
 
 const Device = ({
   dragHandlers,
   style,
-  activeDrags,
   id,
+  width,
+  height,
   children,
   ...props
 }) => {
+  const dispatch = useDispatch();
   const { devices } = useSelector((state) => state.room);
+  const [menuOpen, setMenuOpen] = useState(false);
   const position = {
     x: devices[id]?.x,
     y: devices[id]?.y,
@@ -22,33 +33,107 @@ const Device = ({
       grid={GRID_DIMENSIONS_PIXEL}
       onStop={dragHandlers.onDrop}
       onDrag={dragHandlers.onDrag}
-      activeDrags={activeDrags}
       {...dragHandlers}
+      cancel=".menu"
       position={position}
     >
       <div
-        className={`device ${activeDrags ? "no-pointer-events" : ""}`}
+        id={id}
+        className={`device`}
         style={{
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          borderRadius: 3,
-          width: 25,
-          margin: 0,
-          zIndex: 5,
+          position: "absolute",
           ...style,
+          width,
+          height,
+          background: "none",
         }}
-        id={id}
+        onMouseEnter={() => {
+          setMenuOpen(true);
+        }}
+        onMouseLeave={() => {
+          setMenuOpen(false);
+        }}
       >
-        {children}
+        <div
+          style={{
+            margin: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 1,
+            rotate: `${devices[id]?.rotation || 0}deg`,
+            ...style,
+            width,
+            height,
+          }}
+        >
+          {children}
+        </div>
+        {menuOpen && (
+          <Menu>
+            <MenuItem
+              onClick={() => {
+                const rotation = devices[id]?.rotation || 0;
+                dispatch(
+                  updateDeviceRotation({
+                    id,
+                    rotation: getNextRotation(rotation),
+                  })
+                );
+              }}
+            >
+              <RotateCw className="w-[23px] font-sans h-[23px] text-black inline cursor:pointer mt-[-5px] ml-[7px]" />
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                const rotation = devices[id]?.rotation || 0;
+                dispatch(
+                  updateDeviceRotation({
+                    id,
+                    rotation: getPreviousRotation(rotation),
+                  })
+                );
+              }}
+            >
+              <RotateCcw className="w-[23px] font-sans h-[23px] text-black inline cursor:pointer mt-[-5px] ml-[7px]" />
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                dispatch(
+                  addDevice({
+                    type: devices[id]?.type,
+                    width,
+                    height,
+                    rotation: devices[id]?.rotation,
+                    x: devices[id]?.x + 10,
+                    y: devices[id]?.y + 10,
+                  })
+                );
+              }}
+            >
+              Duplicate
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                dispatch(removeDevice(id));
+              }}
+            >
+              Delete
+            </MenuItem>
+          </Menu>
+        )}
       </div>
     </Draggable>
   );
 };
 
-export const MeetingOwl3 = ({ id, activeDrags, dragHandlers }) => {
+export const MeetingOwl3 = ({ id, dragHandlers }) => {
+  const { width, height } = DEVICE_DIMENSIONS[DEVICE_TYPES.MEETING_OWL_3];
   return (
-    <Device id={id} activeDrags={activeDrags} dragHandlers={dragHandlers}>
+    <Device id={id} dragHandlers={dragHandlers} width={width} height={height}>
       <img
         draggable="false"
         id={id}
@@ -59,17 +144,19 @@ export const MeetingOwl3 = ({ id, activeDrags, dragHandlers }) => {
   );
 };
 
-export const WhiteboardOwl = ({ id, activeDrags, dragHandlers }) => {
+export const WhiteboardOwl = ({ id, dragHandlers }) => {
+  const { width, height } = DEVICE_DIMENSIONS[DEVICE_TYPES.WHITEBOARD_OWL];
   return (
-    <Device id={id} activeDrags={activeDrags} dragHandlers={dragHandlers}>
+    <Device id={id} dragHandlers={dragHandlers} width={width} height={height}>
       <img draggable="false" src="assets/img/wbo.png" alt="Whiteboard Owl" />
     </Device>
   );
 };
 
-export const MeetingHQ = ({ id, activeDrags, dragHandlers }) => {
+export const MeetingHQ = ({ id, dragHandlers }) => {
+  const { width, height } = DEVICE_DIMENSIONS[DEVICE_TYPES.MEETING_HQ];
   return (
-    <Device id={id} activeDrags={activeDrags} dragHandlers={dragHandlers}>
+    <Device id={id} dragHandlers={dragHandlers} width={width} height={height}>
       <img draggable="false" src="assets/img/mhq.png" alt="Meeting HQ" />
     </Device>
   );

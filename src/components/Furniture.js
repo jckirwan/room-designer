@@ -24,16 +24,19 @@ const MenuItem = ({ onClick, last, children }) => {
 };
 
 const Menu = ({ children }) => {
-  const WIDTH = 75;
+  const WIDTH = 80;
   return (
     <div
       style={{
         border: "1px solid black",
         position: "absolute",
-        right: -WIDTH,
+        bottom:-40,
+        // bottom: -WIDTH,
+        // right: -WIDTH,
         background: "#fff",
         color: "#000",
-        width: WIDTH,
+        width: 140,
+        // width: WIDTH,
         userSelect: "none",
         zIndex: 1000,
       }}
@@ -117,7 +120,8 @@ const Furniture = ({
                 );
               }}
             >
-              Rotate
+              Rotate 
+              {/* <span style={{width:"10px" ,height:"10px", backgroundImage: 'url(../../../../public/assets/img/new_login_background.jpg) no-repeat center fixed'}}></span> */}
             </MenuItem>
           </Menu>
         )}

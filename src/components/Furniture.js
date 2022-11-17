@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Draggable from "react-draggable";
 import { GRID_DIMENSIONS_PIXEL } from "../constants/Room";
 import { updateFurnitureRotation } from "../slices/room";
+import { RotateCw } from "react-feather";
+
 
 const getNextRotation = (rotation) => {
   console.log("rotation!", rotation);
@@ -15,7 +17,8 @@ const getNextRotation = (rotation) => {
 const MenuItem = ({ onClick, last, children }) => {
   return (
     <div
-      style={{ padding: 5, borderBottom: last ? "none" : "1px solid grey" }}
+      // style={{ padding: 5, borderBottom: last ? "none" : "1px solid grey" }}
+      style={{ padding: 5}}
       onClick={onClick}
     >
       {children}
@@ -24,24 +27,8 @@ const MenuItem = ({ onClick, last, children }) => {
 };
 
 const Menu = ({ children }) => {
-  const WIDTH = 80;
   return (
-    <div
-      style={{
-        border: "1px solid black",
-        position: "absolute",
-        bottom:-40,
-        // bottom: -WIDTH,
-        // right: -WIDTH,
-        background: "#fff",
-        color: "#000",
-        width: 140,
-        // width: WIDTH,
-        userSelect: "none",
-        zIndex: 1000,
-      }}
-      className="menu"
-    >
+    <div className="absolute w-[38px] -bottom-[29px] z-10 select-none ">
       {children}
     </div>
   );
@@ -120,8 +107,7 @@ const Furniture = ({
                 );
               }}
             >
-              Rotate 
-              {/* <span style={{width:"10px" ,height:"10px", backgroundImage: 'url(../../../../public/assets/img/new_login_background.jpg) no-repeat center fixed'}}></span> */}
+              <RotateCw className="w-[23px] font-sans h-[23px] text-black inline cursor:pointer mt-[-5px] ml-[2px]" />
             </MenuItem>
           </Menu>
         )}

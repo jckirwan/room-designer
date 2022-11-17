@@ -11,7 +11,7 @@ import {
   TV,
   Whiteboard,
   Podium,
-  PoolTable
+  PoolTable,
 } from "./components/Furniture";
 import MenuIcon from "./components/MenuIcon";
 import BasicModal from "./components/modal";
@@ -152,7 +152,9 @@ const App = () => {
       const { type } = piece;
       switch (type) {
         case FURNITURE_TYPES.POOL_TABLE:
-          component = <PoolTable key={id} id={id} dragHandlers={dragHandlers} />;
+          component = (
+            <PoolTable key={id} id={id} dragHandlers={dragHandlers} />
+          );
           break;
         case FURNITURE_TYPES.PODIUM:
           component = <Podium key={id} id={id} dragHandlers={dragHandlers} />;
@@ -161,7 +163,9 @@ const App = () => {
           component = <Chair key={id} id={id} dragHandlers={dragHandlers} />;
           break;
         case FURNITURE_TYPES.WHITEBOARD:
-          component = <Whiteboard key={id} id={id} dragHandlers={dragHandlers} />;
+          component = (
+            <Whiteboard key={id} id={id} dragHandlers={dragHandlers} />
+          );
           break;
         case FURNITURE_TYPES.SCREEN:
           component = <TV key={id} id={id} dragHandlers={dragHandlers} />;
@@ -241,45 +245,49 @@ const App = () => {
               <MenuIcon />
             </div>
           </div>
-          <div className="my-4 inline-block z-50">
+          <div className="my-4 inline-block text-center z-50">
             <BasicModal />
             <ConfirmationModal></ConfirmationModal>
-            <button
-              className={`button-secondary ${
-                videoRangesEnabled && "bg-blue-900 text-white hover:text-white"
-              }`}
-              onClick={() => {
-                dispatch(toggleVideoRanges());
-              }}
-            >
-              Toggle Video Range
-            </button>
-            <button
-              className={`button-secondary ${
-                audioRangesEnabled && "bg-blue-900 text-white hover:text-white"
-              }`}
-              onClick={() => {
-                dispatch(toggleAudioRanges());
-              }}
-            >
-              Toggle Audio Range
-            </button>
-            <button
-              className="button-secondary"
-              onClick={() => {
-                dispatch(createHuddleRoom());
-              }}
-            >
-              Huddle Room
-            </button>
-            <button
-              className="button-secondary"
-              onClick={() => {
-                dispatch(createConferenceRoom());
-              }}
-            >
-              Conference Room
-            </button>
+            <div>
+              <button
+                className={`button-secondary button-sm ${
+                  videoRangesEnabled &&
+                  "bg-blue-900 text-white hover:text-white"
+                }`}
+                onClick={() => {
+                  dispatch(toggleVideoRanges());
+                }}
+              >
+                Toggle Video Range
+              </button>
+              <button
+                className={`button-secondary button-sm ${
+                  audioRangesEnabled &&
+                  "bg-blue-900 text-white hover:text-white"
+                }`}
+                onClick={() => {
+                  dispatch(toggleAudioRanges());
+                }}
+              >
+                Toggle Audio Range
+              </button>
+              <button
+                className="button-secondary button-sm"
+                onClick={() => {
+                  dispatch(createHuddleRoom());
+                }}
+              >
+                Huddle Room
+              </button>
+              <button
+                className="button-secondary button-sm"
+                onClick={() => {
+                  dispatch(createConferenceRoom());
+                }}
+              >
+                Conference Room
+              </button>
+            </div>
           </div>
         </div>
 

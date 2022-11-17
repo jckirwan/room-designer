@@ -19,7 +19,7 @@ const ConfirmationModal = ({
 
   return (
     <>
-      <button onClick={handleOpen} className="button-secondary">Reset Room</button>
+      <button onClick={handleOpen} className="button-danger">Reset Room</button>
       <Modal
         open={open}
         onClose={handleClose}

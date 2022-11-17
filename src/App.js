@@ -39,7 +39,7 @@ const DEFAULT_CONTROLLED = {
 
 const App = () => {
   const dispatch = useDispatch();
-  const { devices, furniture, roomWidth, roomLength } = useSelector(
+  const { devices, furniture, roomWidth, roomLength, videoRangesEnabled, audioRangesEnabled } = useSelector(
     (state) => state.room
   );
   const [activeDrags, setActiveDrags] = useState(0);
@@ -228,15 +228,16 @@ const App = () => {
             <BasicModal />
             <ConfirmationModal></ConfirmationModal>
             <button
-              className="button-secondary"
+              className={`button-secondary ${videoRangesEnabled && "bg-blue-900 text-white hover:text-white"}`}
               onClick={() => {
                 dispatch(toggleVideoRanges());
               }}
+              
             >
               Toggle Video Range
             </button>
             <button
-              className="button-secondary"
+              className={`button-secondary ${audioRangesEnabled && "bg-blue-900 text-white hover:text-white"}`}
               onClick={() => {
                 dispatch(toggleAudioRanges());
               }}
@@ -250,7 +251,7 @@ const App = () => {
           <div className="flex flex-col">
             <DeviceList />
           </div>
-          <div className="w-fit">
+          <div className="w-fit overflow-hidden">
             <Room height={roomLength} width={roomWidth}>
               {roomFurniture}
               {roomDevices}

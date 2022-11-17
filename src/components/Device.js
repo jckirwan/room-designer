@@ -7,7 +7,7 @@ import {
   DEVICE_TYPES,
 } from "../constants/Room";
 import { Menu, MenuItem } from "../components/Menu";
-import { RotateCw, RotateCcw , Copy, Trash2 } from "react-feather";
+import { RotateCw, RotateCcw, Copy, Trash2 } from "react-feather";
 import { getNextRotation, getPreviousRotation } from "../utils";
 import { addDevice, removeDevice, updateDeviceRotation } from "../slices/room";
 
@@ -146,8 +146,8 @@ export const MeetingOwl3 = ({ id, dragHandlers }) => {
       {videoRangesEnabled && (
         <>
           <span
-            className={`animate-ping absolute inline-flex rounded-full bg-blue-200 opacity-75 
-        w-[250px] h-[250px] -z-20
+            className={`absolute inline-flex rounded-full bg-blue-200 opacity-75 
+        w-[500px] h-[500px] -z-10
       `}
           ></span>
           <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500 -z-20"></span>
@@ -156,11 +156,10 @@ export const MeetingOwl3 = ({ id, dragHandlers }) => {
       {audioRangesEnabled && (
         <>
           <span
-            className={`animate-ping absolute inline-flex rounded-full bg-red-200 opacity-50 
-      w-[450px] h-[450px] -z-20
+            className={`absolute inline-flex rounded-full bg-red-200 opacity-50 
+      w-[900px] h-[900px] -z-20
     `}
           ></span>
-          <span className="float inline-flex rounded-full h-3 w-3 bg-red-200 -z-20"></span>
         </>
       )}
     </Device>
@@ -169,9 +168,32 @@ export const MeetingOwl3 = ({ id, dragHandlers }) => {
 
 export const WhiteboardOwl = ({ id, dragHandlers }) => {
   const { width, height } = DEVICE_DIMENSIONS[DEVICE_TYPES.WHITEBOARD_OWL];
+  const { videoRangesEnabled, audioRangesEnabled } = useSelector(
+    (state) => state.room
+  );
   return (
     <Device id={id} dragHandlers={dragHandlers} width={width} height={height}>
       <img draggable="false" src="assets/img/wbo.png" alt="Whiteboard Owl" />
+      {videoRangesEnabled && (
+        <>
+          <span
+            className={`animate top-[50px] absolute inline-flex bg-none border-blue-200 opacity-50 
+            w-0 h-0 
+            border-l-[110px] border-l-transparent
+            border-b-[350px] 
+            border-r-[110px] border-r-transparent -z-10
+      `}
+          ></span>
+          <span
+            className={`top-[50px] absolute inline-flex bg-none border-green-200 opacity-75 
+            w-0 h-0 
+            border-l-[235px] border-l-transparent
+            border-b-[750px] 
+            border-r-[235px] border-r-transparent -z-20
+      `}
+          ></span>
+        </>
+      )}
     </Device>
   );
 };
@@ -200,11 +222,10 @@ export const ExpansionMic = ({ id, dragHandlers }) => {
       {audioRangesEnabled && (
         <>
           <span
-            className={`animate-ping absolute inline-flex rounded-full bg-red-200 opacity-50 
-        w-[200px] h-[200px] -z-20
+            className={`absolute inline-flex rounded-full bg-red-200 opacity-50 
+        w-[300px] h-[300px] -z-20
       `}
           ></span>
-          <span className="relative inline-flex rounded-full h-3 w-3 bg-red-200 -z-20"></span>
         </>
       )}
     </Device>

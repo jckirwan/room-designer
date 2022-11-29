@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addDevice } from "../slices/room";
 import { DEVICE_DIMENSIONS, DEVICE_TYPES } from "../constants/Room";
 
@@ -25,9 +25,10 @@ const DeviceImage = ({ size, src, name, type, className }) => {
 
 const DeviceList = () => {
   const size = 50;
+  const { lightMode } = useSelector((state) => state.room);
   return (
     <>
-      <div className="mx-8 flex flex-col items-center bg-white h-full px-8 rounded pt-8 shadow-lg">
+      <div className="mx-8 flex flex-col items-center bg-white dark:bg-gray-900 dark:text-white h-full px-8 rounded pt-8 shadow-lg dark:shadow-none">
         <h3 className="font-sans_semibold text-xl pb-2">Devices</h3>
         
         <div className="font-sans text-sm pb-7">Meeting Owl 3
@@ -36,7 +37,7 @@ const DeviceList = () => {
           src="assets/img/mop3.png"
           type={DEVICE_TYPES.MEETING_OWL_3}
           name="Meeting Owl 3"
-          className="mt-2 ml-6 hover:cursor-grab active:cursor-grabbing"
+          className="mt-2 ml-6 hover:cursor-crosshair active:cursor-crosshair"
         />
         </div>
         <div className="font-sans text-sm pb-7">Whiteboard Owl
@@ -45,7 +46,7 @@ const DeviceList = () => {
           src="assets/img/wbo.png"
           type={DEVICE_TYPES.WHITEBOARD_OWL}
           name="Whiteboard Owl"
-          className="mt-2 ml-6 hover:cursor-grab active:cursor-grabbing"
+          className="mt-2 ml-6 hover:cursor-crosshair active:cursor-crosshair"
         />
         </div>
         <div className="font-sans text-sm pb-7 ml-[5px]">
@@ -55,16 +56,16 @@ const DeviceList = () => {
           src="assets/img/mhq.png"
           type={DEVICE_TYPES.MEETING_HQ}
           name="Meeting HQ"
-          className="mt-2 hover:cursor-grab active:cursor-grabbing"
+          className="mt-2 hover:cursor-crosshair active:cursor-crosshair"
         />
         </div>
         <div className="font-sans text-sm pb-7">Expansion Mic
         <DeviceImage
           size={size}
-          src="assets/img/expansion-mic.png"
+          src={`${lightMode ? "assets/img/expansion-mic.png" : "assets/img/expansion-mic-light.png"}`}
           type={DEVICE_TYPES.EXPANSION_MIC}
           name="Expansion Mic"
-          className="mt-2 ml-6 hover:cursor-grab active:cursor-grabbing"
+          className="mt-2 ml-6 hover:cursor-crosshair active:cursor-crosshair"
         />
         </div>
       </div>

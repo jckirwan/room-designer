@@ -138,6 +138,7 @@ const Furniture = ({
 
 export const TableSmall = ({ children, ...props }) => {
   const { width, height } = FURNITURE_DIMENSIONS[FURNITURE_TYPES.TABLE_SMALL];
+  const { lightMode } = useSelector((state) => state.room);
   return (
     <Furniture
       style={{
@@ -153,7 +154,7 @@ export const TableSmall = ({ children, ...props }) => {
     >
       <img
         draggable="false"
-        src="assets/img/conference-small.png"
+        src={`${lightMode ? "assets/img/conference-small.png" : "assets/img/conference-small-white.png" }`}
         alt="Table"
       />
     </Furniture>
@@ -162,6 +163,7 @@ export const TableSmall = ({ children, ...props }) => {
 
 export const TableMedium = ({ children, ...props }) => {
   const { width, height } = FURNITURE_DIMENSIONS[FURNITURE_TYPES.TABLE_MEDIUM];
+  const { lightMode } = useSelector((state) => state.room);
   return (
     <Furniture
       style={{
@@ -179,7 +181,7 @@ export const TableMedium = ({ children, ...props }) => {
         width={width}
         height={height}
         draggable="false"
-        src="assets/img/conference-medium.png"
+        src={`${lightMode ? "assets/img/conference-medium.png" : "assets/img/conference-medium-white.png"}`}
         alt="Table"
       />
     </Furniture>
@@ -188,6 +190,7 @@ export const TableMedium = ({ children, ...props }) => {
 
 export const TableLarge = ({ children, ...props }) => {
   const { width, height } = FURNITURE_DIMENSIONS[FURNITURE_TYPES.TABLE_LARGE];
+  const { lightMode } = useSelector((state) => state.room);
   return (
     <Furniture
       style={{
@@ -205,7 +208,7 @@ export const TableLarge = ({ children, ...props }) => {
         width={width}
         height={height}
         draggable="false"
-        src="assets/img/conference-large.png"
+        src={`${lightMode ? "assets/img/conference-large.png" : "assets/img/conference-large-white.png"}`}
         alt="Table"
       />
     </Furniture>
@@ -214,6 +217,7 @@ export const TableLarge = ({ children, ...props }) => {
 
 export const Chair = ({ children, ...props }) => {
   const { width, height } = FURNITURE_DIMENSIONS[FURNITURE_TYPES.CHAIR];
+  const { lightMode } = useSelector((state) => state.room);
   const style = {
     borderRadius: 0,
     color: "white",
@@ -228,7 +232,7 @@ export const Chair = ({ children, ...props }) => {
       <img
         width={width}
         height={width}
-        src="assets/img/chair.svg"
+        src={`${lightMode ? "assets/img/chair.svg" : "assets/img/chair-white.png" }`}
         draggable={false}
       />
     </Furniture>
@@ -237,12 +241,13 @@ export const Chair = ({ children, ...props }) => {
 
 export const TV = ({ children, ...props }) => {
   const { width, height } = FURNITURE_DIMENSIONS[FURNITURE_TYPES.SCREEN];
+  const { lightMode } = useSelector((state) => state.room);
   return (
     <Furniture width={width} height={height} {...props}>
       <img
         width={width}
         height={width}
-        src="assets/img/tv-component.png"
+        src={`${lightMode ? "assets/img/tv-component.png" : "assets/img/tv-component-white.png" }`}
         draggable={false}
       />
     </Furniture>
@@ -251,12 +256,13 @@ export const TV = ({ children, ...props }) => {
 
 export const Whiteboard = ({ children, ...props }) => {
   const { width, height } = FURNITURE_DIMENSIONS[FURNITURE_TYPES.WHITEBOARD];
+  const { lightMode } = useSelector((state) => state.room);
   return (
     <Furniture width={width} height={height} {...props}>
       <img
         width={width}
         height={width}
-        src="assets/img/whiteboard-component.png"
+        src={`${lightMode ? "assets/img/whiteboard-component.png" : "assets/img/whiteboard-component-white.png" }`}
         draggable={false}
       />
     </Furniture>
@@ -265,12 +271,13 @@ export const Whiteboard = ({ children, ...props }) => {
 
 export const Podium = ({ children, ...props }) => {
   const { width, height } = FURNITURE_DIMENSIONS[FURNITURE_TYPES.PODIUM];
+  const { lightMode } = useSelector((state) => state.room);
   return (
     <Furniture width={width} height={height} {...props}>
       <img
         width={width}
         height={width}
-        src="assets/img/podium-top.png"
+        src={`${lightMode ? "assets/img/podium-top.png" : "assets/img/podium-top-white.png" }`}
         draggable={false}
       />
     </Furniture>

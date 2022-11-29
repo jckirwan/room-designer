@@ -28,6 +28,7 @@ import {
   updateFurnitureCoordinates,
   toggleAudioRanges,
   toggleVideoRanges,
+  toggleLightMode,
   createHuddleRoom,
   createConferenceRoom,
 } from "./slices/room";
@@ -51,6 +52,7 @@ const App = () => {
     roomLength,
     videoRangesEnabled,
     audioRangesEnabled,
+    lightMode,
   } = useSelector((state) => state.room);
   const [activeDrags, setActiveDrags] = useState(0);
   const [deltaPosition, setDeltaPosition] = useState(DEFAULT_DELTAS);
@@ -236,21 +238,45 @@ const App = () => {
     setRoomDevices(createDevices(devices));
   }, [furniture, devices]);
 
+  // Hacky way to access the body element index.html, open to suggestions
+  useEffect(() => {
+    if (!lightMode) {
+      document?.getElementsByTagName("body")?.[0]?.classList?.add("bg-gray-900");
+    }
+    if(lightMode) {
+      document?.getElementsByTagName("body")?.[0]?.classList?.remove("bg-gray-900");
+    }
+  }, [lightMode]);
+
   return (
     <>
-      <div className="flex flex-col items-center justify-center">
-        <div className="flex flex-col items-center w-full">
-          <div className="w-full bg-blue-500 shadow-sm">
+      <div
+        className={`flex flex-col h-full items-center justify-startr ${
+          lightMode ? "" : "dark"
+        }`}
+      >
+        <div className="flex flex-col items-center w-full dark:bg-gray-900">
+          <div className="w-full bg-blue-500 shadow-sm dark:bg-transparent">
             <div className="my-4">
-              <MenuIcon />
+              <MenuIcon color={!lightMode ? "blue" : ""} />
             </div>
           </div>
           <div className="my-4 inline-block text-center z-50">
             <BasicModal />
             <ConfirmationModal></ConfirmationModal>
+            <button
+              className={`button-secondary cursor-pointer dark:text-white dark:border-white ${
+                lightMode && "bg-blue-900 text-white hover:text-white"
+              }`}
+              onClick={() => {
+                dispatch(toggleLightMode());
+              }}
+            >
+              Toggle {lightMode ? "Dark" : "Light"} Mode
+            </button>
             <div>
               <button
-                className={`button-secondary button-sm ${
+                className={`button-secondary button-sm cursor-pointer dark:text-white dark:border-white ${
                   videoRangesEnabled &&
                   "bg-blue-900 text-white hover:text-white"
                 }`}
@@ -261,7 +287,7 @@ const App = () => {
                 Toggle Video Range
               </button>
               <button
-                className={`button-secondary button-sm ${
+                className={`button-secondary button-sm cursor-pointer dark:text-white dark:border-white ${
                   audioRangesEnabled &&
                   "bg-blue-900 text-white hover:text-white"
                 }`}
@@ -272,7 +298,7 @@ const App = () => {
                 Toggle Audio Range
               </button>
               <button
-                className="button-secondary button-sm"
+                className="button-secondary button-sm cursor-pointer dark:text-white dark:border-white"
                 onClick={() => {
                   dispatch(createHuddleRoom());
                 }}
@@ -280,7 +306,7 @@ const App = () => {
                 Huddle Room
               </button>
               <button
-                className="button-secondary button-sm"
+                className="button-secondary button-sm cursor-pointer dark:text-white dark:border-white"
                 onClick={() => {
                   dispatch(createConferenceRoom());
                 }}
@@ -291,7 +317,7 @@ const App = () => {
           </div>
         </div>
 
-        <div className="flex w-full justify-center">
+        <div className="flex w-full justify-center dark:bg-gray-900">
           <div className="flex flex-col">
             <DeviceList />
           </div>
@@ -305,7 +331,7 @@ const App = () => {
             <FurnitureList />
           </div>
         </div>
-        <div className="flex items-center justify-center text-lg">
+        <div className="flex items-center justify-center text-lg dark:bg-gray-900 dark:text-white">
           {roomLength} ft x {roomWidth} ft
         </div>
       </div>

@@ -209,14 +209,14 @@ export const MeetingHQ = ({ id, dragHandlers }) => {
 
 export const ExpansionMic = ({ id, dragHandlers }) => {
   const { width, height } = DEVICE_DIMENSIONS[DEVICE_TYPES.EXPANSION_MIC];
-  const { videoRangesEnabled, audioRangesEnabled } = useSelector(
+  const { videoRangesEnabled, audioRangesEnabled, lightMode } = useSelector(
     (state) => state.room
   );
   return (
     <Device id={id} dragHandlers={dragHandlers} width={width} height={height}>
       <img
         draggable="false"
-        src="assets/img/expansion-mic.png"
+        src={`${lightMode ? "assets/img/expansion-mic.png" : "assets/img/expansion-mic-light.png"}`}
         alt="Expansion Mic"
       />
       {audioRangesEnabled && (

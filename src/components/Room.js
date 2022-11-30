@@ -19,7 +19,7 @@ const Room = ({ width, height, children, ...props }) => {
         width: roomWidth * FOOT + BORDER_SIZE,
         height: roomHeight * FOOT + BORDER_SIZE,
         backgroundImage:
-          "repeating-linear-gradient(#e3e3e3 0 1px,transparent 1px 100%),repeating-linear-gradient(90deg, #e3e3e3 0 1px, transparent 1px 100%)",
+          "repeating-linear-gradient(#adadad 0 1px,transparent 1px 100%),repeating-linear-gradient(90deg, #adadad 0 1px, transparent 1px 100%)",
         backgroundSize: `${GRID_UNIT_PIXEL}px ${GRID_UNIT_PIXEL}px `,
         
       }}

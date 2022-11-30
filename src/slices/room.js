@@ -45,6 +45,7 @@ const initialState = {
   furniture: {},
   videoRangesEnabled: false,
   audioRangesEnabled: false,
+  lightMode: false,
 };
 
 const roomSlice = createSlice({
@@ -56,6 +57,9 @@ const roomSlice = createSlice({
     },
     toggleAudioRanges(state) {
       state.audioRangesEnabled = !state.audioRangesEnabled;
+    },
+    toggleLightMode(state) {
+      state.lightMode = !state.lightMode;
     },
     addDevice(state, action) {
       const {
@@ -322,6 +326,7 @@ export const {
   setRoomLength,
   toggleVideoRanges,
   toggleAudioRanges,
+  toggleLightMode,
   createHuddleRoom,
   createConferenceRoom,
 } = roomSlice.actions;

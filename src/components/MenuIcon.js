@@ -7,7 +7,7 @@ const MenuIcon = ({ color }) => {
           viewBox="0 0 136 39"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="fill-white h-16 mx-auto"
+          className={`h-16 mx-auto ${color === 'blue' ? "fill-blue-500" : "fill-white"}`}
           alt="Owl Labs Logo"
           role="logo"
         >
